@@ -1,0 +1,17 @@
+$rem : 16;
+
+@function rem($value){
+    @return $value/$rem*1rem;
+}
+
+@mixin max($width){
+    @media screen and (max-width:#{$width+'px'}) {
+        @content;
+    }
+}
+
+@mixin min($width){
+    @media screen and (min-width:#{$width+'px'}) {
+        @content;
+    }
+}

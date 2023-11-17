@@ -1,0 +1,30 @@
+@import "./lib.scss";
+
+.footer {
+    background: #111; color: #fff; padding: rem(50) rem(60); font-size: rem(14); line-height: 1.25; word-break: keep-all;
+
+    .top {
+        font-size: rem(24);
+    }
+
+    .p {
+        margin-top: rem(10);
+
+        span {
+            display: inline-flex; align-items: center; vertical-align: middle; color: slateblue;
+            svg {
+                margin-right: rem(5);
+            }
+        }
+
+    }
+
+    .copy {
+        padding-top: rem(10); margin-top: rem(10); border-top: 1px solid #ffffff51;
+    }
+
+    @include max(480){
+        font-size: rem(12);
+    }
+
+}
