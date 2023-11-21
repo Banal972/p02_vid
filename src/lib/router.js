@@ -17,6 +17,7 @@ import Search from "../router/InterFace/Search.vue";
 import Login from "../router/User/Login/Login.vue";
 import IdFind from "../router/User/Find/IdFind.vue";
 import PwFind from "../router/User/Find/PwFind.vue";
+import Sign from "../router/User/Sign/Sign.vue";
 
 
 // routes 를 길어지니깐 따로 변수로 생성
@@ -50,6 +51,10 @@ const routes = [
   {
     path : "/auth/pwfind",
     component : PwFind
+  },
+  {
+    path : "/auth/sign",
+    component : Sign
   },
   {
     path: "/:pathMatch(.*)*",

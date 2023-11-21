@@ -24,7 +24,7 @@
                 <button>아이디 찾기</button>
             </div>
 
-            <div class="banner">
+            <div class="banner" @click="$router.push('/auth/sign')">
                 처음 오셨나요? <button>회원가입</button>
             </div>
             

@@ -32,7 +32,7 @@
                 <router-link to="/auth/pwfind">비밀번호 찾기</router-link>
             </div>
             
-            <div class="banner">
+            <div class="banner" @click="$router.push('/auth/sign')">
                 처음 오셨나요? <button>회원가입</button>
             </div>
             

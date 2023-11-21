@@ -38,22 +38,22 @@
             width: 100%;
 
             button {
-                height: 40px; width: 100%; background: #fff; color: #000;
+                height: 40px; width: 100%; background: #fff; color: #000; border-radius: rem(5);
             }
         }
 
         .btn-list {
             display: flex; justify-content: space-between;
             a {
-                background: #fff; color: #000; flex: 1; display: flex; height: 40px; align-items: center; justify-content: center;
+                background: #fff; color: #000; flex: 1; display: flex; height: 40px; align-items: center; justify-content: center; border-radius: rem(5);
                 + a {
-                    margin-left: rem(20);
+                    margin-left: rem(10);
                 }
             }
         }
 
         .banner {
-            background: #fff; color: #000; height: 45px; display: flex; align-items: center; justify-content: center;
+            background: #fff; color: #000; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: rem(5);
         }
 
     }
@@ -62,7 +62,7 @@
     @include max(820) {
 
         .bbx {
-            left: 50%; transform: translate(-50%,-50%); width: 90%; max-width: 480px;
+            left: 50%; transform: translate(-50%,-50%); width: 90%; max-width: 480px; padding: rem(50) 7.5%;
         }
 
     }

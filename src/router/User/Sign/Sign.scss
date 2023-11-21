@@ -1,0 +1,63 @@
+@import "../../../assets/scss/lib.scss";
+
+._sign {
+    min-height: 100vh; background: #000 url(../../../assets/img/user/bg.png) no-repeat center/cover; color: #fff; position: relative; padding: rem(50) 0; box-sizing: border-box; background-attachment: fixed;
+
+    &::before {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba($color: #000000, $alpha: 0.3); z-index: 2; content: '';
+    }
+
+    .bbx {
+        position: relative; z-index: 2; max-width: 850px; margin: 0 auto; box-sizing: border-box; background: #171717; padding: rem(50); width: 95%; border-radius: rem(10);
+
+        .tit {
+            text-align: center; font-size: rem(32); font-weight: bold;
+        }
+
+        .argee {
+            margin-top: rem(25);
+            .cont {
+                background: #fff; color: #000; padding: rem(25); box-sizing: border-box; border-radius: rem(5); font-size: rem(16); word-break: keep-all; line-height: 1.25;
+            }
+            .chek {
+                margin-top: rem(10);
+            }
+
+            + .inb {
+                margin-top: rem(50);
+            }
+
+        }
+
+        .inb {
+            margin-top: rem(20);
+            label {
+                display: block;
+            }
+            input {
+                width: 100%; height: 45px; background: #fff; color: #000; border-radius: rem(5); margin-top: rem(10);
+            }
+        }
+
+        .btn {
+
+            margin-top: rem(60);
+
+            button {
+                width: 100%; background: #fff; color: #fff; border-radius: rem(5); color: #000; height: 45px; cursor: pointer;
+            }
+
+        }
+
+    }
+
+
+    @include max(820) {
+
+        .bbx {
+            padding: rem(50) 5%;
+        }
+
+    }
+
+}

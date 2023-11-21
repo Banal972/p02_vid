@@ -102,9 +102,9 @@
       </div> 
 
       <div class="_wrap si-b">
-        <div class="sign-up">
+        <div class="sign-up" @click="$router.push('/auth')">
           <div class="icon"><img src="../../assets/img/logo.svg" alt="" width="200"></div> 
-          회원가입 하고 나만의 동영상을 저장해보세요
+          로그인 하고 나만의 동영상을 저장해보세요
         </div>
       </div>
 
