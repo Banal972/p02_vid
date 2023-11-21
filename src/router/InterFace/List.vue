@@ -12,18 +12,24 @@
         </div>
 
     </div>
+
+    <ViewModal v-if="viewClick"/>
+
 </template>
 <script>
 import Card from '@/components/Layout/Card.vue';
+import ViewModal from "./ViewModal.vue";
 
 export default {
-    name : "List",
+    name : "List", 
     components : {
-        Card
+        Card,
+        ViewModal
     },
     data() {
         return {
-            title : ""
+            title : "",
+            viewClick : false
         }
     },
     methods: {
