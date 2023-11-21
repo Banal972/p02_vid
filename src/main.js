@@ -1,18 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-// fontawesome 불러오기
-/* import the fontawesome core */
-import { library } from '@fortawesome/fontawesome-svg-core'
-/* import font awesome icon component */
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-/* import specific icons */
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { faGithub } from "@fortawesome/free-brands-svg-icons"
+// 라우터
+import router from './lib/router'
 
-/* add icons to the library */
-library.add(faUserSecret,faGithub)
+// fontawesome
+import FontAwesomeIcon from "./lib/fontawesome"
+
+
 
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
+.use(router)
 .mount('#app')

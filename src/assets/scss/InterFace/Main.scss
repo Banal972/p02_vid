@@ -1,0 +1,125 @@
+@import "../lib.scss";
+
+._main {
+    background: #0d0d0d; overflow-x: hidden; color: #fff;
+
+    ._tit {
+        dt {
+            font-size: rem(24); font-weight: bold;
+        }
+    }
+
+
+    .main-frame {
+
+        width: 100%; position: relative;
+
+        .title {
+            position: absolute; left: 0; top: 42%; transform: translateY(-50%); z-index: 5;
+            padding: 0 rem(60);
+            dt {
+                font-size: 4vw; font-weight: bold;
+            }
+            dd {
+                font-size: 2vw; margin-top: 35/32*1em; font-weight: 500; line-height: 1.5;
+            }
+        }
+
+        &::after {
+            content: ''; display: block; padding-bottom: 56.25%;
+        }
+
+        iframe {
+            width: 100%; height: 100%; position: absolute; left: 0; top: 0;
+        }
+
+        @include max(1024){
+
+            .title {
+                padding: 0 rem(40);
+                
+                dt {
+                    font-size: 5vw;
+                }
+                dd {
+                    font-size: 3vw;
+                }
+
+            }
+
+        }
+
+        @include max(820){
+
+            .title {
+                padding: 0 2.5%; top: 50%; word-break: keep-all; width: 80%;
+
+                dt {
+                    font-size: rem(36);
+                }
+                dd {
+                    font-size: rem(24);
+                }
+
+            }
+
+            &::after {
+
+                padding-bottom: 296/166*100%;
+
+            }
+
+        }
+
+    }
+
+    .main-layout {
+        
+        margin-top: -22.5vw; position: relative; z-index: 10; padding: rem(50) 0 0; 
+        background: linear-gradient(360deg, rgba(0,0,13,1) 80%, rgba(0,0,13,0) 96%);
+
+
+        @include max(820) {
+            margin-top: 0; padding: 0;
+        }
+
+    }
+
+
+    .popularity {
+        margin-top: rem(75);
+
+        .grid {
+            margin: rem(30) 0 0;
+        }        
+
+    }
+
+    .si-b {
+        margin-top: rem(50);
+
+        .sign-up {
+            display: flex; background: rgb(37, 169, 130); align-items: center; justify-content: center; padding: rem(12.5) rem(15); border-radius: rem(5); font-weight: 500; letter-spacing: 0.025em; cursor: pointer; word-break: keep-all; text-align: center;
+
+            .icon {
+                width: rem(50); margin-right: rem(20); flex: 0 0 auto;
+            }
+
+        }
+
+
+        @include max(820) {
+
+            .sign-up {
+                .icon {
+                    margin-right: rem(10); width: rem(35);
+                }
+            }
+
+        }
+
+    }
+
+}
+
+

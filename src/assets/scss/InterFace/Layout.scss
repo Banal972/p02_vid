@@ -1,0 +1,202 @@
+@import "../lib.scss";
+
+// 헤더 빈공간
+.blank {
+    height: 80px;
+
+    @include max(820) {
+
+        height: 50px;
+
+    }
+
+}
+
+._wrap {
+    box-sizing: border-box; padding: 0 rem(60);
+    &[left] {
+        padding-left: rem(60); padding-right: 0;
+    }
+
+    @include max(1024){
+
+        padding: 0 rem(40);
+        &[left] {
+            padding-left: rem(40); padding-right: 0;
+        }
+
+    }
+
+    @include max(820){
+        padding: 0 2.5%;
+        &[left] {
+            padding-left: 2.5%; padding-right: 0;
+        }
+    }
+
+}
+
+
+// 헤더
+.header {
+
+    position: fixed; top: 0; left: 0; color: #fff; z-index: 9999; box-sizing: border-box; width: 100%; font-size: rem(16); background: #00000d;
+
+    ._wrap {
+        display: flex; align-items: center; height: 80px; justify-content: space-between;
+    }
+
+    .lb {
+        display: flex; align-items: center;
+
+        .logo {
+            width: rem(40); cursor: pointer;
+        }
+    
+        .gnb {
+            display: flex; align-items: center; margin-left: rem(50); font-weight: 500;
+            li {
+                svg {
+                    margin-right: rem(2.5); font-size: rem(16);
+                }
+                + li {
+                    margin-left: rem(25);
+                }
+            }
+        }
+
+    }
+
+
+    .user{
+        display: flex; align-items: center;
+        .search {
+            font-size: rem(22); cursor: pointer;
+        }
+        .user-icon {
+            width: rem(40); background: #fff; border-radius: 1000px; margin-left: rem(20);
+            &::after {
+                display: block; padding-bottom: 100%; content: '';
+            }
+        }
+    }
+
+    .menu {
+        position: absolute; width: 25px; height: 15px; right: 2.5%; top: 50%; transform: translateY(-50%); cursor: pointer;
+        span {
+            position: absolute; top: 0; right: 0; height: 3px; width: 100%; background: #fff;
+            &:nth-of-type(1) {
+                top: 0;
+            }
+            &:nth-of-type(2) {
+                top: 50%;
+            }
+            &:nth-of-type(3) {
+                top: 100%;
+            }
+        }
+    }
+
+    @include min(821) {
+        .menu {
+            display: none;
+        }
+    }
+
+    @include max(820){
+
+        ._wrap {
+            height: 50px;
+        }
+
+        .lb {
+            .gnb {
+                display: none;
+            }
+        }
+
+        .user {
+            margin-right: 50px;
+        }
+
+    }
+
+
+    @include max(480){
+
+
+
+    }
+    
+
+}
+
+// 푸터
+.footer {
+    background: #111; color: #fff; padding: rem(50) 0; font-size: rem(14); line-height: 1.25; word-break: keep-all;
+
+    .top {
+        font-size: rem(24);
+    }
+
+    .p {
+        margin-top: rem(10);
+
+        span {
+            display: inline-flex; align-items: center; vertical-align: middle; color: slateblue;
+            svg {
+                margin-right: rem(5);
+            }
+        }
+
+    }
+
+    .copy {
+        padding-top: rem(10); margin-top: rem(10); border-top: 1px solid #ffffff51;
+    }
+
+    @include max(820){
+        font-size: rem(16);
+    }
+
+}
+
+
+// 카드 레이아웃1
+.card-layout {
+
+    position: relative; width: 100%; cursor: pointer;
+
+    .iframe {
+        width: 100%; position: relative; border-radius: rem(10); overflow: hidden;
+
+        &::after {
+            content: ''; display: block; padding-bottom: 56.25%;
+        }
+
+        iframe,
+        img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+        }
+
+    }
+
+    h4 {
+        font-size: rem(16); margin-top: rem(10); line-height: 1.3;
+        text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-weight: 500;
+    }
+    
+
+    &.lay-02 {
+
+        .iframe {
+
+            &::after {
+                padding-bottom: 296/166*100%;
+            }
+
+        }
+
+    }
+
+}

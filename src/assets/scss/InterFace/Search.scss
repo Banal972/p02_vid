@@ -1,0 +1,35 @@
+@import "../lib.scss";
+
+._search {
+
+    padding: 100px 0; background: #00000d; min-height: calc(100vh - 80px - 196px);
+
+    .input-box {
+
+        display: flex; color: #fff; font-size: 18px;
+
+        select {
+            width: 200px; height: 45px; border: 1px solid rgb(37, 169, 130); border-radius: 5px; box-sizing: border-box;
+        }
+
+        input {
+            width: 100%; margin-left: 15px; border: 1px solid rgb(37, 169, 130); border-radius: 5px;
+        }
+
+    }
+
+    .grid {
+        display: grid; grid-template-columns: repeat(4,1fr); margin-top: 100px; gap: 25px;
+        .imb {
+            background: #acf; border-radius: 5px; box-sizing: border-box; overflow: hidden; background-size: cover; background-repeat: no-repeat; background-position: center;
+            &::after {
+                content: ''; display: block; padding-bottom: 56.25%;
+            }
+        }
+    }
+
+    .found {
+        text-align: center; font-size: 48px; color: #fff; font-weight: bold; margin-top: 100px;
+    }
+
+}

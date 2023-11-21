@@ -1,12 +1,8 @@
 <template>
-  <Main/>
-  <Footer/>
+  <router-view></router-view>
 </template>
 
 <script>
-
-  import Main from './router/Main.vue'
-  import Footer from "./components/Footer.vue"
 
   export default {  
     name: 'App',
@@ -14,10 +10,6 @@
       return {
 
       }
-    },
-    components: {
-      Main,
-      Footer
     }
   }
 
@@ -25,7 +17,10 @@
 
 <style lang="scss">
 
-  @import "./assets/scss/Layout.scss";
-  @import "./assets/scss/Main.scss";
+  @import "./assets/scss/InterFace/Layout.scss";
+  @import "./assets/scss/InterFace/List.scss";
+  @import "./assets/scss/InterFace/Search.scss";
+  @import "./assets/scss/InterFace/Main.scss";
+  @import "./assets/scss/404.scss";
 
 </style>
