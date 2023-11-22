@@ -11,8 +11,9 @@
                     <li><router-link to="/list/popular">인기 영상</router-link></li>
                     <li><router-link to="/list/music">음악</router-link></li>
                     <li><router-link to="/list/gaming">게임</router-link></li>
-                    <li><router-link to="/list/butty">뷰티</router-link></li>
-                    <li><router-link to="">관심 콘텐츠</router-link></li>
+                    <li><router-link to="/list/news">뉴스</router-link></li>
+                    <li><router-link to="/list/sport">스포츠</router-link></li>
+                    <li><router-link to="/list/like">관심 콘텐츠</router-link></li>
                 </ul>
             </div>
 

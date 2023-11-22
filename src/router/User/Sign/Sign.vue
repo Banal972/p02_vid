@@ -23,10 +23,10 @@
                 <input 
                     type="text" 
                     id="name" 
-                    :value="signData.name" 
+                    :value="signData.userName" 
                     placeholder="성함을 입력해주세요" 
                     style="max-width: 250px;" 
-                    @input="signData.name = $event.target.value"
+                    @input="signData.userName = $event.target.value"
                     ref="name"
                 >
             </div>
@@ -36,9 +36,9 @@
                 <input 
                     type="email" 
                     id="userEmail" 
-                    :value="signData.email" 
+                    :value="signData.userEmail" 
                     placeholder="이메일 입력해주세요" 
-                    @input="signData.email = $event.target.value"
+                    @input="signData.userEmail = $event.target.value"
                     ref="userEmail"
                 >
             </div>
@@ -48,9 +48,9 @@
                 <input 
                     type="text" 
                     id="userID" 
-                    :value="signData.id" 
+                    :value="signData.userID" 
                     placeholder="아이디를 입력해주세요" 
-                    @input="signData.id = $event.target.value"
+                    @input="signData.userID = $event.target.value"
                     ref="userID"
                 >
             </div>
@@ -60,9 +60,9 @@
                 <input 
                     type="password" 
                     id="pw" 
-                    :value="signData.pw" 
+                    :value="signData.userPW" 
                     placeholder="비밀번호를 입력해주세요" 
-                    @input="signData.pw = $event.target.value"
+                    @input="signData.userPW = $event.target.value"
                     ref="pw"
                 >
             </div>
@@ -89,19 +89,25 @@
 </template>
 
 <script>
+
+    import { mapState } from 'vuex';
+
     export default {
         name : "Sign",
         data() {
             return {
                 chek : false,
                 signData : {
-                    name : "",
-                    email : "",
-                    id : "",
-                    pw : ""
+                    userName : "",
+                    userEmail : "",
+                    userID : "",
+                    userPW : ""
                 },
                 pwc : ""
             }
+        },
+        computed : {
+            ...mapState(['member'])
         },
         methods: {
             chekHandler(e){
@@ -110,35 +116,39 @@
             submit(){
 
                 const emailExp = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}'); //eslint-disable-line
-                const pwExp = new RegExp('(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})')
+                const pwExp = new RegExp('(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})');
 
-                if(this.signData.name == ""){
+                if(!this.chek){
+                    return alert('동의하기를 눌러주세요.');
+                }
+
+                if(this.signData.userName == ""){
                     this.$refs.name.focus();
                     return alert('성함을 입력하지 않았습니다.');
                     
                 }
 
-                if(this.signData.email == ""){
+                if(this.signData.userEmail == ""){
                     this.$refs.userEmail.focus();
                     return alert('이메일을 입력하지 않았습니다.');
                 }
 
-                if(!emailExp.test(this.signData.email)){
+                if(!emailExp.test(this.signData.userEmail)){
                     this.$refs.userEmail.focus();
                     return alert('올바른 이메일 형식이 아닙니다.');
                 }
 
-                if(this.signData.id == ""){
+                if(this.signData.userID == ""){
                     this.$refs.userID.focus();
                     return alert('아이디을 입력하지 않았습니다.');
                 }
 
-                if(this.signData.pw == ""){
+                if(this.signData.userPW == ""){
                     this.$refs.pw.focus();
                     return alert('비밀번호를 입력하지 않았습니다.');
                 }
 
-                if(!pwExp.test(this.signData.pw)){
+                if(!pwExp.test(this.signData.userPW)){
                     this.$refs.pw.focus();
                     return alert('비밀번호에 6자 이상, 특수문자 하나 이상 포함되어야합니다.');
                 }
@@ -148,14 +158,22 @@
                     return alert('비밀번호를 입력하지 않았습니다.');
                 }
 
-                if(this.pwc != this.signData.pw){
+                if(this.pwc != this.signData.userPW){
                     this.signData.pw = "";
                     this.pwc = "";
                     return alert('비밀번호가 서로 다릅니다.');
                 }
 
+                const find = this.member.findIndex(e=>e.userID == this.signData.userID);
+                if(find >= 0){
+                    this.signData.userID = "";
+                    this.$refs.userID.focus();
+                    return alert('아이디가 이미 존재합니다.');
+                }
 
-                
+                this.$store.commit('addMember',this.signData);
+                alert('회원가입에 성공하였습니다.');
+                this.$router.push('/auth');
                 
 
             }

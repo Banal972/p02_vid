@@ -75,7 +75,7 @@
 
     .main-layout {
         
-        margin-top: -22.5vw; position: relative; z-index: 10; padding: rem(50) 0 0; 
+        margin-top: -22.5vw; position: relative; z-index: 10; padding: rem(50) 0 rem(150); 
         background: linear-gradient(360deg, rgba(0,0,13,1) 80%, rgba(0,0,13,0) 96%);
 
 
@@ -99,7 +99,7 @@
         margin-top: rem(50);
 
         .sign-up {
-            display: flex; background: rgb(37, 169, 130); align-items: center; justify-content: center; padding: rem(12.5) rem(15); border-radius: rem(5); font-weight: 500; letter-spacing: 0.025em; cursor: pointer; word-break: keep-all; text-align: center;
+            display: flex; background: rgb(37, 169, 130); align-items: center; justify-content: center; padding: rem(12.5) rem(15); border-radius: rem(5); font-weight: 500; letter-spacing: 0.025em; word-break: keep-all; text-align: center;
 
             .icon {
                 width: rem(50); margin-right: rem(20); flex: 0 0 auto;

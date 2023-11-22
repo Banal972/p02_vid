@@ -13,7 +13,7 @@ import store from './store'
 const app = createApp(App)
 
 app
-.use(store)
 .component('font-awesome-icon', FontAwesomeIcon)
+.use(store)
 .use(router)
 .mount('#app')

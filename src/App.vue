@@ -46,7 +46,12 @@
   select,
   input,
   button {
-      padding: 0; background: none; border: 0; outline: 0; font-family: "Pretendard"; color: inherit; font-size: inherit; padding: 0 0.5em; box-sizing: border-box;
+      padding: 0; background: none; border: 0; outline: 0; font-family: "Pretendard"; color: inherit; font-size: inherit; box-sizing: border-box;
+  }
+
+  select,
+  input {
+    padding : 0 0.5em;
   }
 
   option {

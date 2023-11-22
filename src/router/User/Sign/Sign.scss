@@ -44,7 +44,7 @@
             margin-top: rem(60);
 
             button {
-                width: 100%; background: #fff; color: #fff; border-radius: rem(5); color: #000; height: 45px; cursor: pointer;
+                width: 100%; background: rgb(37, 169, 130); border-radius: rem(5); color: #fff; height: 45px; cursor: pointer;
             }
 
         }
@@ -56,6 +56,13 @@
 
         .bbx {
             padding: rem(50) 5%;
+
+            .inb {
+                input {
+                    height: 40px;
+                }
+            }
+
         }
 
     }

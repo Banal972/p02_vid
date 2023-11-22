@@ -11,29 +11,44 @@
                 오신걸 환영합니다.
             </div>
             
-            <div class="inb">
-                <input type="text" placeholder="아이디를 입력해주세요">
-            </div>
-            
-            <div class="inb">
-                <input type="password" placeholder="비밀번호를 입력해주세요">
-            </div>
+            <form @submit="login">
 
-            <div class="chek">
-                <input type="checkbox" id="save"> <label for="save">아이디 저장</label>
-            </div>
-            
-            <div class="btn">
-                <button>로그인</button>
-            </div>
+                <div class="inb">
+                    <input 
+                        type="text" 
+                        :value="userId" 
+                        placeholder="아이디를 입력해주세요"
+                        @input="userId = $event.target.value"
+                        ref="userId"
+                    >
+                </div>
+                
+                <div class="inb">
+                    <input 
+                        type="password" 
+                        :value="userPw" 
+                        placeholder="비밀번호를 입력해주세요"
+                        @input="userPw = $event.target.value"
+                        ref="userPw"
+                    >
+                </div>
 
-            <div class="btn-list">
-                <router-link to="/auth/idfind">아이디 찾기</router-link>
-                <router-link to="/auth/pwfind">비밀번호 찾기</router-link>
-            </div>
+                <div class="flex">
+                    <div class="chek">
+                        <input type="checkbox" id="save"> <label for="save">아이디 저장</label>
+                    </div>
+
+                    <router-link to="/auth/find">아이디 / 비밀번호 찾기</router-link>
+                </div>
+                
+                <div class="btn">
+                    <button type="submit">로그인</button>
+                </div>
+
+            </form>
             
             <div class="banner" @click="$router.push('/auth/sign')">
-                처음 오셨나요? <button>회원가입</button>
+                처음 오셨나요?
             </div>
             
         </div>
@@ -41,8 +56,44 @@
     </div>
 </template>
 <script>
+
     export default {
-        name : "Login"
+        name : "Login",
+        data() {
+            return {
+                userId : "",
+                userPw : ""
+            }
+        },
+        methods: {
+            login(e){
+
+                e.preventDefault();
+
+                if(this.userId == ""){
+                    this.$refs.userId.focus();
+                    return alert("아이디를 입력해주세요.");
+                }
+
+                if(this.userPw == ""){
+                    this.$refs.userId.focus();
+                    return alert("비밀번호를 입력해주세요.");
+                }
+
+                const find = this.$store.state.member.findIndex(e=>e.userID == this.userId);
+
+                if(find < 0 || this.userPw != this.$store.state.member[find].userPW){
+                    return alert('아이디 혹은 비밀번호가 다릅니다.')
+                }
+
+                this.$store.commit('authLogin',this.userId);
+                
+                alert('로그인에 성공하였습니다.');
+
+                this.$router.push('/');
+
+            }
+        },
     }
 </script>
 

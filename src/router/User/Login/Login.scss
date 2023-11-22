@@ -9,8 +9,9 @@
     }
 
     .bbx {
-        position: absolute; left: rem(60); top: 50%; transform: translate(0,-50%); z-index: 5; background: #171717; box-sizing: border-box; padding: rem(50); border-radius: rem(10); text-align: center; width: 450px;
+        position: absolute; left: rem(60); top: 50%; transform: translate(0,-50%); z-index: 5; background: #171717; box-sizing: border-box; padding: rem(50); border-radius: rem(10); text-align: center; width: 450px; font-size: rem(14);
 
+        form > div,
         > div {
             margin-top: rem(15);
         }
@@ -20,7 +21,7 @@
         }
 
         .tit {
-            font-size: rem(28); font-weight: bold; 
+            font-size: rem(24); font-weight: bold; 
         }
 
         .inb {
@@ -30,8 +31,15 @@
 
         }
 
-        .chek {
+        .flex {
+            display: flex; justify-content: space-between;
+        }
+
+        .find-link {
             text-align: left;
+            button {
+                cursor: pointer; 
+            }
         }
 
         .btn {
@@ -39,6 +47,12 @@
 
             button {
                 height: 40px; width: 100%; background: #fff; color: #000; border-radius: rem(5);
+            }
+        }
+
+        .btn {
+            button {
+                cursor: pointer;
             }
         }
 
@@ -53,7 +67,7 @@
         }
 
         .banner {
-            background: #fff; color: #000; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: rem(5);
+            background: rgb(37, 169, 130); color: #fff; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: rem(5);
         }
 
     }
@@ -63,6 +77,7 @@
 
         .bbx {
             left: 50%; transform: translate(-50%,-50%); width: 90%; max-width: 480px; padding: rem(50) 7.5%;
+
         }
 
     }

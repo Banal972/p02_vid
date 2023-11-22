@@ -65,7 +65,7 @@
             },
           }"
         >
-          <swiper-slide v-for="(a,i) in popular" :key="i" >
+          <swiper-slide v-for="(a,i) in gaming" :key="i" >
             <Card :a="a"/>
           </swiper-slide>
         </swiper>
@@ -95,16 +95,23 @@
           }"
         >
           <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" :type="'lay-02'"/>
+            <Card :a="a" :type="'lay-02'" @openModal="viewClick = true"/>
           </swiper-slide>
         </swiper>
 
       </div> 
 
-      <div class="_wrap si-b">
-        <div class="sign-up" @click="$router.push('/auth')">
+      <div class="_wrap si-b" v-if="user == undefined">
+        <div class="sign-up" @click="$router.push('/auth')" style="cursor: pointer">
           <div class="icon"><img src="../../assets/img/logo.svg" alt="" width="200"></div> 
           로그인 하고 나만의 동영상을 저장해보세요
+        </div>
+      </div>
+
+      <div class="_wrap si-b" v-if="user">
+        <div class="sign-up">
+          <div class="icon"><img src="../../assets/img/logo.svg" alt="" width="200"></div> 
+          동영상을 클릭해 나만의 동영상을 저장해보세요
         </div>
       </div>
 
@@ -130,7 +137,7 @@
             },
           }"
         >
-          <swiper-slide v-for="(a,i) in popular" :key="i" >
+          <swiper-slide v-for="(a,i) in music" :key="i" >
             <Card :a="a"/>
           </swiper-slide>
         </swiper>
@@ -188,20 +195,24 @@
 
   </div>
 
+  <ViewModal v-if="viewClick" @closeModal="viewClick = false" />
+
 </template>
 
 <script>
 
   // 컴포넌트
   import Card from '@/components/Layout/Card.vue'
+  import ViewModal from './ViewModal.vue'
+
   
-
-  // 모듈
-  // import axios from "axios"
-  import {Swiper,SwiperSlide} from "swiper/vue"
-
   // css
   import "swiper/css"
+
+  // 모듈
+  import axios from "axios"
+  import {Swiper,SwiperSlide} from "swiper/vue"
+  import { mapState } from 'vuex'
 
   export default {
     name : "Main",
@@ -210,12 +221,14 @@
         popular : [],
         gaming : [],
         music : [],
+        viewClick : true
       }
     },
     components : {
       Card,
       Swiper,
       SwiperSlide,
+      ViewModal
     },
     setup() {
       const onSwiper = (swiper) => {
@@ -229,10 +242,13 @@
         onSlideChange,
       };
     },
-    mounted(){
+    computed : {
+      ...mapState(['user'])
+    },
+    async mounted(){
 
       // 인기
-      /* axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+      await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
         params: {
           part : "snippet",
           chart : "mostPopular",
@@ -246,10 +262,10 @@
       })
       .catch(e=>{
         console.log(e);
-      }); */
+      });
 
-/*       // 게임
-      axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+      // 게임
+      await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
         params: {
           part : "snippet",
           chart : "mostPopular",
@@ -268,7 +284,7 @@
 
 
       // Top 100 인기곡
-      axios.get("https://youtube.googleapis.com/youtube/v3/playlistItems",{
+      await axios.get("https://youtube.googleapis.com/youtube/v3/playlistItems",{
         params: {
           part : "snippet",
           playlistId : "PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m",
@@ -281,7 +297,7 @@
       })
       .catch(e=>{
         console.log(e);
-      }); */
+      });
 
 
     }

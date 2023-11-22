@@ -1,13 +1,12 @@
 <template>
 
-    <div class="card-layout" :class="type">
+    <div class="card-layout" @click="$emit('openModal')">
         
         <div class="iframe">
-            <img src="https://placehold.co/600x400" alt="">
-            <!-- <img :src="a.snippet.thumbnails.default.url" alt=""> -->
+            <img :src=" a ? a.snippet.thumbnails.maxres?.url : 'https://placehold.co/600x400' " alt="">
         </div>
 
-        <!-- <h4>{{a.snippet.title}}</h4> -->
+        <h4 v-if="a !== undefined">{{a.snippet.title}}</h4>
     </div>
 
 </template>
@@ -17,7 +16,7 @@
     export default {
         name : "Card",
         props : {
-            // a : Object,
+            a : Object,
             type : String
         }
     }

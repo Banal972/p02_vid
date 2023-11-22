@@ -15,8 +15,7 @@ import Search from "../router/InterFace/Search.vue";
 
 // 유저
 import Login from "../router/User/Login/Login.vue";
-import IdFind from "../router/User/Find/IdFind.vue";
-import PwFind from "../router/User/Find/PwFind.vue";
+import Find from "../router/User/Find/Find.vue";
 import Sign from "../router/User/Sign/Sign.vue";
 
 
@@ -45,12 +44,8 @@ const routes = [
     component : Login,
   },
   {
-    path : "/auth/idfind",
-    component : IdFind
-  },
-  {
-    path : "/auth/pwfind",
-    component : PwFind
+    path : "/auth/find",
+    component : Find
   },
   {
     path : "/auth/sign",
