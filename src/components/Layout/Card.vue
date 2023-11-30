@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-layout" @click="$emit('openModal')">
+    <div class="card-layout" @click="$emit('openModal',this.a.id)">
         
         <div class="iframe">
             <img :src=" a ? a.snippet.thumbnails.maxres?.url : 'https://placehold.co/600x400' " alt="">

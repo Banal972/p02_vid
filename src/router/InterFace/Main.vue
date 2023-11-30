@@ -4,7 +4,7 @@
     
     <div class="main-frame">
 
-      <dl class="title">
+      <dl class="title" ref="title">
         <dt>[리무진서비스] EP.72 에스파 윈터</dt>
         <dd>I’m Unhappy, London, Confetti, 대낮에 한 이별</dd>
       </dl>
@@ -14,6 +14,7 @@
 
     <div class="main-layout">
 
+      <!-- 인기많은 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
@@ -37,12 +38,13 @@
           }"
         >
           <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a"/>
+            <Card :a="a" @openModal="modalOpen"/>
           </swiper-slide>
         </swiper>
 
       </div>
 
+      <!-- 게임 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
@@ -66,12 +68,13 @@
           }"
         >
           <swiper-slide v-for="(a,i) in gaming" :key="i" >
-            <Card :a="a"/>
+            <Card :a="a" @openModal="modalOpen"/>
           </swiper-slide>
         </swiper>
 
       </div>
 
+      <!-- 채널 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
@@ -95,12 +98,13 @@
           }"
         >
           <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" :type="'lay-02'" @openModal="viewClick = true"/>
+            <Card :a="a" :type="'lay-02'" @openModal="modalOpen"/>
           </swiper-slide>
         </swiper>
 
       </div> 
 
+      <!-- 배너 -->
       <div class="_wrap si-b" v-if="user == undefined">
         <div class="sign-up" @click="$router.push('/auth')" style="cursor: pointer">
           <div class="icon"><img src="../../assets/img/logo.svg" alt="" width="200"></div> 
@@ -115,6 +119,7 @@
         </div>
       </div>
 
+      <!-- top 100 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
@@ -138,12 +143,13 @@
           }"
         >
           <swiper-slide v-for="(a,i) in music" :key="i" >
-            <Card :a="a"/>
+            <Card :a="a" @openModal="modalOpen"/>
           </swiper-slide>
         </swiper>
 
       </div>
 
+      <!-- 숏츠 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
@@ -167,35 +173,17 @@
           }"
         >
           <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" :type="'lay-02'"/>
+            <Card :a="a" :type="'lay-02'" @openModal="modalClose"/>
           </swiper-slide>
         </swiper>
 
       </div> 
-
-      <!-- <div class="popularity _wrap" left>
-
-        <dl class="_tit">
-          <dt>지금 방송중인 생방송</dt>
-        </dl>
-
-        <swiper
-          class="grid"
-          :slides-per-view="4.5"
-          :space-between="20"
-        >
-          <swiper-slide v-for="(a,i) in data" :key="i" >
-            <Card :a="a"/>
-          </swiper-slide>
-        </swiper>
-
-      </div>  -->
-
+      
     </div>
 
   </div>
 
-  <ViewModal v-if="viewClick" @closeModal="viewClick = false" />
+  <ViewModal v-if="viewClick" :viewID="viewID" @closeModal="viewClick = false;"/>
 
 </template>
 
@@ -213,6 +201,7 @@
   import axios from "axios"
   import {Swiper,SwiperSlide} from "swiper/vue"
   import { mapState } from 'vuex'
+  import gsap from 'gsap'
 
   export default {
     name : "Main",
@@ -221,7 +210,8 @@
         popular : [],
         gaming : [],
         music : [],
-        viewClick : true
+        viewClick : false,
+        viewID : ""
       }
     },
     components : {
@@ -229,6 +219,15 @@
       Swiper,
       SwiperSlide,
       ViewModal
+    },
+    methods : {
+      modalOpen(event){
+        this.viewID = event;
+        this.viewClick = true;
+      },
+      modalClose(){
+        this.viewClick = false;
+      }
     },
     setup() {
       const onSwiper = (swiper) => {
@@ -246,6 +245,22 @@
       ...mapState(['user'])
     },
     async mounted(){
+
+      gsap.timeline()
+      .fromTo(this.$refs.title.querySelector('dt'),{
+        x : -50,
+        opacity : 0
+      },{
+        opacity : 1,
+        x : 0
+      })
+      .fromTo(this.$refs.title.querySelector('dd'),{
+        x : -50,
+        opacity : 0
+      },{
+        x : 0,
+        opacity : 1
+      });
 
       // 인기
       await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{

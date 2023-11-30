@@ -18,6 +18,10 @@ import Login from "../router/User/Login/Login.vue";
 import Find from "../router/User/Find/Find.vue";
 import Sign from "../router/User/Sign/Sign.vue";
 
+// 프로필
+import ProfileSelect from "../router/User/Select/ProfileSelect.vue";
+import ProfilePin from "../router/User/Select/ProfilePin.vue";
+
 
 // routes 를 길어지니깐 따로 변수로 생성
 const routes = [
@@ -50,6 +54,14 @@ const routes = [
   {
     path : "/auth/sign",
     component : Sign
+  },
+  {
+    path : "/user/select",
+    component : ProfileSelect
+  },
+  {
+    path : "/user/select/:id",
+    component : ProfilePin
   },
   {
     path: "/:pathMatch(.*)*",

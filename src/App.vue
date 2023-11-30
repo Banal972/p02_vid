@@ -18,6 +18,9 @@
       padding: 0; margin: 0;
   }
 
+  *::-webkit-scrollbar {width: 8px;}
+  *::-webkit-scrollbar-thumb {background-color: #2f3542; border-radius: 10px;}
+
   ul,li {
       list-style: none;
   }
@@ -27,7 +30,7 @@
   }
 
   html {
-      font-size: $rem; letter-spacing: -0.025em; font-family: "Pretendard";
+      font-size: $rem+"px"; letter-spacing: -0.025em; font-family: "Pretendard";
 
       @include max(820) {
           font-size: 14px;

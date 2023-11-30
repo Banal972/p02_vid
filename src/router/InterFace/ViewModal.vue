@@ -61,47 +61,63 @@
             }
         },
         props : {
-            // dataID : String
+            viewID : String
         },
         methods: {
             closeModal(e){
                 if(e.target === this.$refs.front){
                     this.$emit('closeModal');
                 }
+            },
+            async axiosFunc(){
+
+                try {
+
+                    if(this.viewID != ""){
+
+                        const response = 
+                            await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
+                                params : {
+                                    part : "snippet",
+                                    id : this.viewID,
+                                    key : process.env.VUE_APP_YOUTUBE_API_KEY
+                                }
+                            })
+                            .then(({data})=>{
+                                this.iframes = data.items;
+                                return data.items[0].snippet.categoryId;
+                            });
+
+
+                        await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
+                            params : {
+                                part : "snippet",
+                                chart : "mostPopular",
+                                maxResults : 4,
+                                regionCode : "KR",
+                                videoCategoryId : response,
+                                key : process.env.VUE_APP_YOUTUBE_API_KEY
+                            }
+                        })
+                        .then(({data})=>{
+                            this.similar = data.items;
+                        })
+
+                    }
+
+                } catch (e) {
+                    console.log(e);
+                }
+
             }
         },
-        async beforeCreate(){
-            await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
-                params : {
-                    part : "snippet",
-                    id : "zefga5_GEyY",
-                    key : process.env.VUE_APP_YOUTUBE_API_KEY
-                }
-            })
-            .then(({data})=>{
-                this.iframes = data.items;
-            })
-            .catch(e=>{
-                console.log(e);
-            });
-
-            await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
-                params : {
-                    part : "snippet",
-                    chart : "mostPopular",
-                    maxResults : 4,
-                    regionCode : "KR",
-                    videoCategoryId : 10,
-                    key : process.env.VUE_APP_YOUTUBE_API_KEY
-                }
-            })
-            .then(({data})=>{
-                this.similar = data.items;
-            })
-            .catch(e=>{
-                console.log(e);
-            });
-
+        watch : {
+            viewID(){
+                this.axiosFunc();
+            }
+        },
+        mounted(){
+            this.axiosFunc();
         }
     }
 
