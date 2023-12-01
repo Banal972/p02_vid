@@ -5,11 +5,12 @@
     <div class="main-frame">
 
       <dl class="title" ref="title">
-        <dt>[리무진서비스] EP.72 에스파 윈터</dt>
-        <dd>I’m Unhappy, London, Confetti, 대낮에 한 이별</dd>
+        <dt>{{visual?.snippet.title}}</dt>
+        <dd>{{visual?.snippet.description}}</dd>
       </dl>
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/zefga5_GEyY?si=ksqEZ0Nq_ecQ2Cww&amp;controls=0&amp;autoplay=1&amp;mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
+
     </div>
 
     <div class="main-layout">
@@ -178,7 +179,7 @@
         </swiper>
 
       </div> 
-      
+
     </div>
 
   </div>
@@ -191,7 +192,7 @@
 
   // 컴포넌트
   import Card from '@/components/Layout/Card.vue'
-  import ViewModal from './ViewModal.vue'
+  import ViewModal from '../../components/Layout/ViewModal/ViewModal.vue'
 
   
   // css
@@ -211,7 +212,8 @@
         gaming : [],
         music : [],
         viewClick : false,
-        viewID : ""
+        viewID : "",
+        visual : null
       }
     },
     components : {
@@ -245,6 +247,22 @@
       ...mapState(['user'])
     },
     async mounted(){
+
+      // 메인 비주얼
+      axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+        params: {
+          part : "snippet",
+          id : 'lyeLYUCalNw',
+          key : process.env.VUE_APP_YOUTUBE_API_KEY
+        }
+      })
+      .then(({data})=>{
+        this.visual = data.items[0];
+      })
+      .catch(e=>{
+        console.log(e);
+      });
+
 
       gsap.timeline()
       .fromTo(this.$refs.title.querySelector('dt'),{

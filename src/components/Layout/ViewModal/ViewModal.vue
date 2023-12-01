@@ -8,9 +8,20 @@
             
                 <div class="modal_iframe">
                     
-                    <img :src="iframes[0].snippet.thumbnails.maxres.url" alt="">
+                    <img 
+                        :src="
+                            iframes[0] ? 
+                                iframes[0].snippet.thumbnails.maxres 
+                                ? 
+                                    iframes[0].snippet.thumbnails.maxres.url 
+                                :
+                                    iframes[0].snippet.thumbnails.high.url 
+                            : 
+                            'https://placehold.co/600x400' 
+                            " 
+                    alt="">
 
-                    <div class="play">
+                    <div class="play" @click="$router.push(`/view/${iframes[0].id}`)">
                         <font-awesome-icon :icon="['fas', 'play']" />
                     </div>
 
@@ -23,8 +34,11 @@
                             <dt>작성자 - {{iframes[0].snippet.channelTitle}}</dt>
                             <dd>{{iframes[0].snippet.title}}</dd>
                         </dl>
-                        <div class="add">
-                            <font-awesome-icon :icon="['fas', 'plus']" />
+                        <div class="add" @click="addLikeVid">
+                            <div class="icon">
+                                <font-awesome-icon :icon="['fas', 'plus']" v-if="!like" />
+                                <font-awesome-icon :icon="['fas', 'check']" :bounce="bounce" v-if="like"/>
+                            </div>
                         </div>
                     </div>
 
@@ -48,6 +62,8 @@
 
     import Card from '@/components/Layout/Card.vue';
     import axios from 'axios';
+    import { mapState } from 'vuex';
+    
 
     export default {
         name : "ViewModal",
@@ -57,8 +73,13 @@
         data() {
             return {
                 iframes : [],
-                similar : []
+                similar : [],
+                like : false,
+                bounce : false,
             }
+        },
+        computed : {
+            ...mapState(['user'])
         },
         props : {
             viewID : String
@@ -69,12 +90,51 @@
                     this.$emit('closeModal');
                 }
             },
+            addLikeVid(){
+                // 1. 프로필에 likevid가 존재하는지
+                // 2. 존재할경우 likevid 삭제
+                // 3. 존재하지 않을경우 likevid 추가 및  like true bounce true
+                // 4. 5초후 bounce false
+
+                if(this.user){
+
+                    const profile = this.user.profile.filter(e=>e.select)[0];
+
+                    if(!profile.likeVid.includes(this.viewID)){                    
+                        this.like = true;
+                        this.bounce = true;
+                        setTimeout(() => {
+                            this.bounce = false;
+                        }, 1000);
+                    }else{
+                        this.like = false;
+                    }
+
+                    this.$store.commit('likevid',this.viewID);
+
+                }                
+
+            },
             async axiosFunc(){
 
                 try {
 
                     if(this.viewID != ""){
 
+                        // 1. 프로필에 likevid가 존재하는지
+                        // 2. 존재할경우 like true
+                        // 3. 존재하지 않을경우 like false
+
+                        if(this.user){
+
+                            const profile = this.user.profile.filter(e=>e.select)[0];
+                            if(profile.likeVid.includes(this.viewID)){
+                                this.like = true;
+                            }
+
+                        }
+
+                        // 비디오 가져오기
                         const response = 
                             await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
                                 params : {
@@ -122,3 +182,7 @@
     }
 
 </script>
+
+<style lang="scss">
+    @import "./ViewModal.scss";
+</style>

@@ -19,16 +19,14 @@
 
             <div class="user">
                 
-                <div class="search" @click="$router.push('/search')">
-                    <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-                </div>
+                <Search/>
 
                 <router-link to="/auth" v-if="user == undefined">로그인</router-link>
 
                 <div class="user-info" v-if="user !== undefined">
-                    <div class="user-icon" :style="`background-image:url(${selectUser.img})`"></div>
+                    <div class="user-icon" :style="`background-image:url(${selectUser?.img})`"></div>
 
-                    <div class="info-box">
+                    <!-- <div class="info-box">
                         <ul class="member">
                             <li 
                                 v-for="(a,i) in profile" 
@@ -48,7 +46,7 @@
                             <li @click="$router.push(`/user/${selectUser.id}/update`)">프로필 수정</li>
                             <li @click="$store.commit('authLogout')">로그아웃</li>
                         </ul>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -67,6 +65,7 @@
 <script>
 
     import { mapState } from 'vuex';
+    import Search from './Layout/Search/Search.vue';
 
     export default {
         name : "Header",
@@ -76,11 +75,14 @@
                 profile : null
             }
         },
+        components : {
+            Search
+        },
         computed : {
             ...mapState(['user'])
         },
         watch : {
-            user: {
+            /* user: {
                 handler(val){
                     
                     if(val != undefined){
@@ -89,22 +91,25 @@
 
                         const profile = val.profile.filter(el=>el.select == false);
                         this.profile = profile;
-                    }
+                    }else{
 
-                    this.selectUser = null;
-                    this.profile = null;
+                        this.selectUser = null;
+                        this.profile = null;
+
+                    }
 
                 },
                 deep : true
-            }
+            } */
         },
         created() {
             
-            const selectUser = this.user.profile.filter(el=>el.select == true)[0];
+            /* const selectUser = this.user.profile.filter(el=>el.select == true)[0];
             this.selectUser = selectUser;
 
             const profile = this.user.profile.filter(el=>el.select == false);
-            this.profile = profile;
+            this.profile = profile; */
+
         },
     }
 

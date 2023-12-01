@@ -20,7 +20,7 @@
 
     // 컴포넌트
     import Card from '@/components/Layout/Card.vue';
-    import ViewModal from './ViewModal.vue';
+    import ViewModal from '../../components/Layout/ViewModal/ViewModal.vue';
     // 모듈
     import axios from 'axios';
     import { mapState } from 'vuex';
@@ -108,23 +108,27 @@
 
                 }else{
 
-                    const profile = this.user.profile.filter(e=>e.select)[0];
+                    if(this.user){
 
-                    const vidID = profile.likeVid;
+                        const profile = this.user.profile.filter(e=>e.select)[0];
 
-                    axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
-                        params : {
-                            part : "snippet",
-                            id : vidID.join(','), // 비디오 요청 보낼때 , 를 붙여서 보냄
-                            key : process.env.VUE_APP_YOUTUBE_API_KEY
-                        }
-                    })
-                    .then(({data})=>{
-                        this.data = data.items;
-                    })
-                    .catch(e=>{
-                        console.log(e);
-                    });
+                        const vidID = profile.likeVid;
+
+                        axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+                            params : {
+                                part : "snippet",
+                                id : vidID.join(','), // 비디오 요청 보낼때 , 를 붙여서 보냄
+                                key : process.env.VUE_APP_YOUTUBE_API_KEY
+                            }
+                        })
+                        .then(({data})=>{
+                            this.data = data.items;
+                        })
+                        .catch(e=>{
+                            console.log(e);
+                        });
+
+                    }
 
                 }
                 

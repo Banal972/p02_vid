@@ -1,0 +1,41 @@
+@import "../../../assets/scss/lib.scss";
+
+.search-box {
+
+    position: relative; margin-right: rem(20);
+
+    .search {
+        font-size: rem(22); cursor: pointer;
+    }
+
+    .search-window {
+
+        position: absolute; right: 0; top: 0; width: 0; overflow: hidden; visibility: visible;
+        
+        .flex {
+            display: flex; align-items: center; background: rgb(37, 169, 130); border-radius: rem(5);
+
+            input {
+                height: 35px;
+            }
+            .icon {
+                font-size: rem(20); margin: 0 rem(10); margin-right: rem(5);
+            }
+
+        }
+
+        .late {
+            margin-top: rem(25); background: rgb(37, 169, 130); padding: rem(10); font-size: rem(14); border-radius: rem(5); white-space: nowrap;
+
+            ul {
+                li {
+                    padding-top: rem(7.5); margin-top: rem(7.5); border-top: 1px solid rgb(33, 152, 116);
+                }
+            }
+
+        }
+
+    }
+
+
+}

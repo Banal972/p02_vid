@@ -1,4 +1,4 @@
-@import "../lib.scss";
+@import "../../../assets/scss/lib.scss";
 
 ._viewModal {
 
@@ -61,7 +61,7 @@
 
                     .add {
                         width: rem(40); font-size: rem(20); background: #fff; color: #000; position: relative; border-radius: 1000px; cursor: pointer; flex: 0 0 auto;
-                        svg {
+                        .icon {
                             position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
                         }
                         &::after {

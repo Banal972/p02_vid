@@ -4,81 +4,73 @@
         
         <div class="_wrap">
 
-            <div class="input-box">
-                <select :value="select" @change="selectChange">
-                    <option value="">전체</option>
-                    <option value="제목">제목</option>
-                    <option value="채널명">채널명</option>
-                </select>
-                <input type="text" @input="inputChange" @keydown="submit" :value="input" placeholder="검색명을 입력해주세요">
+            <h4 class="title">
+                {{ $route.params.data }} 를 검색하셨습니다.
+                <span>관련된 12개의 영상을 불러왔습니다.</span>
+            </h4>
+
+            <div class="grid" v-if="searchData">
+                <Card v-for="(a, i) in searchData" :key="i" :a="a" @openModal="modalOpen"/>
             </div>
 
-            <div class="grid" v-if="searchData.length > 0">
-                <router-link to="" v-for="(a,i) in searchData" :key="i">
-                    <div class="imb" :style="`background-image : url(${a.snippet.thumbnails.default.url})`"></div>
-                </router-link>
-            </div>
-
-            <div class="found">
+            <div class="found" v-if="!searchData">
                 검색결과가 존재하지 않습니다.
             </div>
 
         </div>
 
     </div>
+
+    <ViewModal v-if="viewClick" :viewID="viewID" @closeModal="viewClick = false;"/>
+
 </template>
 
 <script>
+
+    import ViewModal from '@/components/Layout/ViewModal/ViewModal.vue';
+    import Card from '@/components/Layout/Card.vue';
     import axios from 'axios';
 
     export default {
         name : "Search",
         data() {
             return {
-                input : "",
-                select : "",
-                searchData : [],
+                searchData : null,
+                viewClick : false,
+                viewID : ""
             }
         },
-        methods: {
-            selectChange(e){
-                this.select = e.target.value;
+        components : {
+            ViewModal,
+            Card
+        },
+        methods : {
+            modalOpen(event){
+                this.viewID = event;
+                this.viewClick = true;
             },
-            inputChange(e){
-                this.input = e.target.value;
+            modalClose(){
+                this.viewClick = false;
             },
-            submit(e){
-                if(e.key == "Enter" && e.code == "Enter"){
-
-                    let type = "?type=channel&type=video";
-
-                    if(this.select === "채널명"){
-                        type = "?type=channel";
-                    }
-
-                    setTimeout(()=>{
-                        axios.get(`https://www.googleapis.com/youtube/v3/search${type}`,{
-                            params : {
-                                q : this.input,
-                                part : "snippet",
-                                regionCode : "KR",
-                                relevanceLanguage : "ko",
-                                maxResults : 10,
-                                key : process.env.VUE_APP_YOUTUBE_API_KEY
-                            }
-                        })
-                        .then(({data})=>{
-                            this.searchData = data.items;
-                        })
-                        .catch(e=>{
-                            console.log(e);
-                        })
-                    },200);
-
-                }
-            }
         },
         mounted(){
+
+            axios.get(`https://www.googleapis.com/youtube/v3/search`,{
+                params : {
+                    q : this.$route.params.data,
+                    part : "snippet",
+                    regionCode : "KR",
+                    relevanceLanguage : "ko",
+                    maxResults : 12,
+                    key : process.env.VUE_APP_YOUTUBE_API_KEY
+                }
+            })
+            .then(({data})=>{
+                this.searchData = data.items;
+            })
+            .catch(e=>{
+                console.log(e);
+            })
 
         }
     }

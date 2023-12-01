@@ -4,65 +4,7 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      user : {
-        userID : "test",
-        userName : "테스트",
-        userEmail : "test@test.com",
-        profile : [
-          {
-            id : "0123456",
-            img : "/img/profile.png",
-            name : "프로필1",
-            select : true,
-            pin : "0722",
-            likeVid : [
-              "zefga5_GEyY",
-              "zefga5_GEyY",
-              "zefga5_GEyY"
-            ]
-          },
-          {
-            id : "0123457",
-            img : "/img/profile.png",
-            name : "프로필2",
-            select : false,
-            pin : "1234",
-            likeVid : [
-              "zefga5_GEyY"
-            ]
-          },
-          {
-            id : "0123458",
-            img : "/img/profile.png",
-            name : "프로필3",
-            select : false,
-            pin : "4567",
-            likeVid : [
-              "zefga5_GEyY"
-            ]
-          },
-          {
-            id : "0123459",
-            img : "/img/profile.png",
-            name : "프로필4",
-            select : false,
-            pin : "0124",
-            likeVid : [
-              "zefga5_GEyY"
-            ]
-          },
-          {
-            id : "0123460",
-            img : "/img/profile.png",
-            name : "프로필5",
-            select : false,
-            pin : "7896",
-            likeVid : [
-              "zefga5_GEyY"
-            ]
-          }
-        ]
-      },
+      user : null,
       member : [
         {
           userID : "test",
@@ -71,9 +13,51 @@ const store = createStore({
           userPW : "!xptmxm123",
           profile : [
             {
+              id : "0123456",
               img : "/img/profile.png",
               name : "프로필1",
-              pin : 0,
+              select : true,
+              pin : "0722",
+              likeVid : [
+                "zefga5_GEyY",
+              ]
+            },
+            {
+              id : "0123457",
+              img : "/img/profile.png",
+              name : "프로필2",
+              select : false,
+              pin : "1234",
+              likeVid : [
+                "zefga5_GEyY"
+              ]
+            },
+            {
+              id : "0123458",
+              img : "/img/profile.png",
+              name : "프로필3",
+              select : false,
+              pin : "4567",
+              likeVid : [
+                "zefga5_GEyY"
+              ]
+            },
+            {
+              id : "0123459",
+              img : "/img/profile.png",
+              name : "프로필4",
+              select : false,
+              pin : "0124",
+              likeVid : [
+                "zefga5_GEyY"
+              ]
+            },
+            {
+              id : "0123460",
+              img : "/img/profile.png",
+              name : "프로필5",
+              select : false,
+              pin : "7896",
               likeVid : [
                 "zefga5_GEyY"
               ]
@@ -84,11 +68,10 @@ const store = createStore({
     }
   },
   mutations : { // 수정
-    likevid(state,payload){
+    likevid(state,payload){ // 영상 관심 추가 및 삭제
       const rs = state.user.profile.findIndex(e=>e.select);
-
       const rs2 = state.user.profile[rs].likeVid.findIndex(e=>e === payload);
-
+      
       if(rs2 > -1){
         state.user.profile[rs].likeVid.splice(rs2,1);
       }else{

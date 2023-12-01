@@ -12,6 +12,7 @@ import Found404 from "../router/Found404.vue";
 import Main from "../router/InterFace/Main.vue";
 import List from "../router/InterFace/List.vue";
 import Search from "../router/InterFace/Search.vue";
+import View from "../router/InterFace/View/View.vue";
 
 // 유저
 import Login from "../router/User/Login/Login.vue";
@@ -38,10 +39,14 @@ const routes = [
         component : List
       },
       {
-        path: "search",
+        path: "search/:data",
         component : Search,
       }
     ]
+  },
+  {
+    path : "/view/:id",
+    component : View
   },
   {
     path : "/auth",

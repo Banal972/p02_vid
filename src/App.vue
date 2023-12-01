@@ -69,7 +69,6 @@
   @import "./assets/scss/InterFace/List.scss";
   @import "./assets/scss/InterFace/Search.scss";
   @import "./assets/scss/InterFace/Main.scss";
-  @import "./assets/scss/InterFace/View.scss";
   @import "./assets/scss/404.scss";
 
 </style>
