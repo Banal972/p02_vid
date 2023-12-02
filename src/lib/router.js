@@ -22,6 +22,7 @@ import Sign from "../router/User/Sign/Sign.vue";
 // 프로필
 import ProfileSelect from "../router/User/Select/ProfileSelect.vue";
 import ProfilePin from "../router/User/Select/ProfilePin.vue";
+import ProfileAdd from "../router/User/Profile/Add/Add.vue"
 
 
 // routes 를 길어지니깐 따로 변수로 생성
@@ -67,6 +68,10 @@ const routes = [
   {
     path : "/user/select/:id",
     component : ProfilePin
+  },
+  {
+    path : "/user/profile/add",
+    component : ProfileAdd
   },
   {
     path: "/:pathMatch(.*)*",

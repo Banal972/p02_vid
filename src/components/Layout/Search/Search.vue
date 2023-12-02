@@ -55,10 +55,8 @@
                         alert('검색어를 입력해주세요');
                         return this.$refs.input.focus();
                     }
-
+                    
                     this.$router.push(`/search/${this.input}`);
-
-                    this.input = "";
 
                 }
             },
