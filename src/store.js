@@ -4,7 +4,12 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      user : null,
+      user : {
+        userID : "test2",
+        userName : "테스트2",
+        userEmail : "test2@test.com",
+        profile : []
+      },
       member : [
         {
           userID : "test",
@@ -67,6 +72,11 @@ const store = createStore({
       ]
     }
   },
+  getters : {
+    getUser(state){
+      return state.user;
+    }
+  },
   mutations : { // 수정
     likevid(state,payload){ // 영상 관심 추가 및 삭제
       const rs = state.user.profile.findIndex(e=>e.select);
@@ -77,6 +87,29 @@ const store = createStore({
       }else{
         state.user.profile[rs].likeVid.push(payload);
       }
+
+    },
+    // 프로필 생성
+    profileAdd(state,payload){
+      
+      if(state.user.profile.length >= 5){
+        return alert('프로필을 5개 이상 생성하실 수 없습니다');
+      }
+
+      const timestamp =  new Date().getTime(); // 지금 시간 타임스탭
+      const random = Math.floor(Math.random() * 1000); // 랜덤 숫자
+      let token = timestamp - random 
+
+      state.user.profile.push(
+        {
+          id : token,
+          img : payload.imgURL,
+          name : payload.name,
+          select : false,
+          pin : null,
+          likeVid : []
+        }
+      )
 
     },
     profileLogin(state,payload){

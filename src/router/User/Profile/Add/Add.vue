@@ -22,7 +22,7 @@
 
             <div class="btn">
                 <router-link to="">이전</router-link>
-                <router-link to="">생성</router-link>
+                <button type="button" @click="onSubmit">생성</button>
             </div>
 
         </div>        
@@ -30,13 +30,24 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+
     export default {
         name : "Add",
         data() {
             return {
-                
+                imgURL : "",
+                name : "",
             }
         },
+        computed : {
+            ...mapState(['user'])
+        },
+        methods : {
+            onSubmit(){
+                this.$slots
+            }
+        }
     }
 </script>
 <style lang="scss">

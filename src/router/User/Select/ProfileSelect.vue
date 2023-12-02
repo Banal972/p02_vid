@@ -69,8 +69,11 @@
             }
 
         },
-        mounted() {
-            
+        created() {
+            if(this.user.profile.length <= 0){
+                alert('프로필이 존재하지 않습니다.')
+                return this.$router.push('/user/profile/add');
+            }
         },
     }
 
