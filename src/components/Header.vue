@@ -32,7 +32,7 @@
                             <li 
                                 v-for="(a,i) in profile" 
                                 :key="i" 
-                                @click="$store.commit('profileLogin',a.id)"
+                                @click="profileChange(a)"
                             >
                                 <div class="user-icon" :style="`background-image:url(${a.img})`"></div>
                                 <p class="name">{{a.name}}</p>
@@ -89,6 +89,17 @@
                     return alert('프로필은 5개 이상 생성할 수 없습니다.');
                 }
                 this.$router.push('/user/profile/add');
+            },
+            profileChange(a){
+                
+                const sp = this.$store.getters.profileGet.filter(e=>e.id == a.id)[0];
+
+                if(sp.pin){
+                    this.$router.push(`/user/select/${a.id}`);
+                }else{
+                    this.$store.commit('profileLogin',a.id);
+                    this.$router.push('/');
+                }
             }
         },
         watch : {

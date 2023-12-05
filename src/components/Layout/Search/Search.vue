@@ -70,8 +70,6 @@
                     }
                     
                     const rs = this.prevSearch.findIndex(e=>e == this.input);
-                    console.log(rs);
-
                     if( rs < 0){
                         this.prevSearch.push(this.input);
                     }
@@ -83,9 +81,6 @@
             onClick(e){
 
                 const text = e.target.innerText;
-
-                const rs = this.prevSearch.findIndex(e=>e == text);
-
                 this.$router.push(`/search/${text}`);
 
             },
