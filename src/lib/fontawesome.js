@@ -10,6 +10,11 @@ import {
         faPlay,
         faPlus,
         faCheck,
+        faAngleLeft,
+        faPause,
+        faMaximize,
+        faMinimize,
+        faVolumeHigh
     } 
 from '@fortawesome/free-solid-svg-icons'
 
@@ -25,7 +30,12 @@ library.add(
     faPlay,
     faPlus,
     faCheck,
-    faPenToSquare
+    faPenToSquare,
+    faAngleLeft,
+    faPause,
+    faMaximize,
+    faMinimize,
+    faVolumeHigh
 )
 
 export default FontAwesomeIcon;

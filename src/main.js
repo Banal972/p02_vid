@@ -23,8 +23,12 @@ globalCookiesConfig({
     sameSite: "None",
 });
 
+// 유튜브 iframe
+import VueYtframe from "vue3-ytframe";
+
 app
 .component('font-awesome-icon', FontAwesomeIcon)
+.use(VueYtframe)
 .use(store)
 .use(router)
 .mount('#app')
