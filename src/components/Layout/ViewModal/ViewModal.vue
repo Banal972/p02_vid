@@ -45,7 +45,7 @@
                     <div class="similar">
                         <h4 class="h4">비슷한 컨텐츠</h4>
                         <div class="grid">
-                            <Card v-for="(a,i) in similar" :a="a" :key="i"/>
+                            <Card v-for="(a,i) in similar" :a="a" :key="i" @click="changeID(a)"/>
                         </div>
                     </div>
 
@@ -72,6 +72,7 @@
         },
         data() {
             return {
+                dataID : "",
                 iframes : [],
                 similar : [],
                 like : false,
@@ -85,6 +86,9 @@
             viewID : String
         },
         methods: {
+            changeID(a){
+                this.dataID = a.id;
+            },
             closeModal(e){
                 if(e.target === this.$refs.front){
                     this.$emit('closeModal');
@@ -100,7 +104,7 @@
 
                     const profile = this.user.profile.filter(e=>e.select)[0];
 
-                    if(!profile.likeVid.includes(this.viewID)){                    
+                    if(!profile.likeVid.includes(this.dataID)){                    
                         this.like = true;
                         this.bounce = true;
                         setTimeout(() => {
@@ -110,7 +114,7 @@
                         this.like = false;
                     }
 
-                    this.$store.commit('likevid',this.viewID);
+                    this.$store.commit('likevid',this.dataID);
 
                 }else{
 
@@ -124,7 +128,7 @@
 
                 try {
 
-                    if(this.viewID != ""){
+                    if(this.dataID != ""){
 
                         // 1. 프로필에 likevid가 존재하는지
                         // 2. 존재할경우 like true
@@ -133,7 +137,7 @@
                         if(this.user){
 
                             const profile = this.user.profile.filter(e=>e.select)[0];
-                            if(profile.likeVid.includes(this.viewID)){
+                            if(profile.likeVid.includes(this.dataID)){
                                 this.like = true;
                             }
 
@@ -144,7 +148,7 @@
                             await axios.get('https://youtube.googleapis.com/youtube/v3/videos',{
                                 params : {
                                     part : "snippet",
-                                    id : this.viewID,
+                                    id : this.dataID,
                                     key : process.env.VUE_APP_YOUTUBE_API_KEY
                                 }
                             })
@@ -177,11 +181,12 @@
             }
         },
         watch : {
-            viewID(){
+            dataID(){
                 this.axiosFunc();
             }
         },
         mounted(){
+            this.dataID = this.viewID;
             this.axiosFunc();
         }
     }
