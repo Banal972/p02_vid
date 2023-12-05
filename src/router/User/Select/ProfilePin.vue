@@ -28,9 +28,29 @@
                 </div>
             </div>
 
+            <div class="center">
+                <button type="button" @click="this.pinModal = !this.pinModal">PIN 찾기</button>
+            </div>
+
         </div>
 
     </div>
+
+    <div class="pin_find_modal" v-if="pinModal">
+        <div class="back" @click="this.pinModal = !this.pinModal"></div>
+
+        <div class="cont">
+
+            <label for="">계정의 비밀번호를 입력해주세요</label>
+            <input ref="pws" type="password" @input="this.inputPass = $event.target.value">
+            <div class="btn">
+                <button type="button" @click="pinSubmit">찾기</button>
+            </div>
+
+        </div>
+
+    </div>
+
 </template>
 
 <script>
@@ -44,6 +64,8 @@
             return {
                 pins : ['','','',''],
                 userData : {},
+                inputPass : "",
+                pinModal : false,
                 fail : false
             }
         },
@@ -55,6 +77,14 @@
             this.userData = filter[0];
         },
         methods: {
+            pinSubmit(){
+                if(this.inputPass == this.user.userPW){
+                    alert(`해당 프로필의 PIN은 ${this.userData.pin} 입니다.`);
+                    this.pinModal = false;
+                }else{
+                    alert('비밀번호가 다릅니다.');
+                }
+            },
             submit(){
 
                 let pin = "";

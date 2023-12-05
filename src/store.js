@@ -187,6 +187,7 @@ const store = createStore({
       const filter = state.member.filter(e=>e.userID == payload)[0];
       const data = {
         userID : filter.userID,
+        userPW : filter.userPW,
         userName : filter.userName,
         userEmail : filter.userEmail,
         profile : filter.profile
