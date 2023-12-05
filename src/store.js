@@ -181,6 +181,7 @@ const store = createStore({
     authLogout(state){
       state.user = null;
     },
+
     // 로그인
     authLogin(state,payload){
 
@@ -196,14 +197,15 @@ const store = createStore({
       state.user = data;
 
     },
+
     // 회원가입
     addMember(state,payload){
-      console.log(payload);
       state.member.push({
         ...payload,
         profile : []
       });
     }
+    
   }
 })
 
