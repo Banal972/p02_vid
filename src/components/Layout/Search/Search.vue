@@ -11,7 +11,8 @@
             <div class="late">
                 <p>최근 검색 기록</p>
                 <ul>
-                    <li>최근 검색기록이 없습니다</li>
+                    <li v-if="prevSearch.length <= 0">최근 검색기록이 없습니다</li>
+                    <li v-for="(a,i) in prevSearch" :key="i">{{ a }}</li>
                 </ul>
             </div>
 
@@ -34,6 +35,7 @@
         data() {
             return {
                 openSearch : false,
+                prevSearch : [],
                 input : "",
             }
         },
@@ -55,6 +57,7 @@
                     }
                     
                     this.$router.push(`/search/${this.input}`);
+                    this.prevSearch.push(this.input);
 
                 }
             },
@@ -97,6 +100,23 @@
                 this.openSearch = false;
 
             }
+        },
+        created() {
+            this.$watch(
+                () => this.$route.params,
+                () => {
+                    if(this.$refs.window){
+
+                        gsap.to(this.$refs.window,{
+                            width: "0rem",
+                            duration : 0
+                        });
+
+                    }
+
+                    this.openSearch = false;
+                }
+            )
         },
         mounted() {
             gsap.set(this.$refs.window,{width:"0rem"});
