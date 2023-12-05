@@ -9,7 +9,7 @@
         <dd>{{visual?.snippet.description}}</dd>
       </dl>
 
-      <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
+      <iframe :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
 
     </div>
 
@@ -22,26 +22,29 @@
           <dt>지금 가장 인기많은 영상</dt>
         </dl>
 
-        <swiper
-          class="grid"
-          :slides-per-view="1.5"
-          :space-between="20"
-          :breakpoints="{
-            480: {
-              slidesPerView: 2.5,
-            },
-            820 : {
-              slidesPerView: 3.5,
-            },
-            1280: {
-              slidesPerView: 4.5,
-            },
-          }"
-        >
-          <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" @openModal="modalOpen"/>
-          </swiper-slide>
-        </swiper>
+        <div class="grid">
+          <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
+          <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
+          <swiper
+            :slides-per-view="1.5"
+            :space-between="20"
+            :breakpoints="{
+              480: {
+                slidesPerView: 2.5,
+              },
+              820 : {
+                slidesPerView: 3.5,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }"
+          >
+            <swiper-slide v-for="(a,i) in popular" :key="i" >
+              <Card :a="a" @openModal="modalOpen"/>
+            </swiper-slide>
+          </swiper>
+        </div>
 
       </div>
 
@@ -52,26 +55,29 @@
           <dt>인기 상승 게임영상</dt>
         </dl>
 
-        <swiper
-          class="grid"
-          :slides-per-view="1.5"
-          :space-between="20"
-          :breakpoints="{
-            480: {
-              slidesPerView: 2.5,
-            },
-            820 : {
-              slidesPerView: 3.5,
-            },
-            1280: {
-              slidesPerView: 4.5,
-            },
-          }"
-        >
-          <swiper-slide v-for="(a,i) in gaming" :key="i" >
-            <Card :a="a" @openModal="modalOpen"/>
-          </swiper-slide>
-        </swiper>
+        <div class="grid">
+          <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
+          <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
+          <swiper
+            :slides-per-view="1.5"
+            :space-between="20"
+            :breakpoints="{
+              480: {
+                slidesPerView: 2.5,
+              },
+              820 : {
+                slidesPerView: 3.5,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }"
+          >
+            <swiper-slide v-for="(a,i) in gaming" :key="i" >
+              <Card :a="a" @openModal="modalOpen"/>
+            </swiper-slide>
+          </swiper>
+        </div>
 
       </div>
 
@@ -82,26 +88,29 @@
           <dt>인기상승 채널</dt>
         </dl>
 
-        <swiper
-          class="grid"
-          :slides-per-view="1.5"
-          :space-between="20"
-          :breakpoints="{
-            480: {
-              slidesPerView: 2.5,
-            },
-            820 : {
-              slidesPerView: 3.5,
-            },
-            1280: {
-              slidesPerView: 4.5,
-            },
-          }"
-        >
-          <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" :type="'lay-02'" @openModal="modalOpen"/>
-          </swiper-slide>
-        </swiper>
+        <div class="grid">
+          <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
+          <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
+          <swiper
+            :slides-per-view="1.5"
+            :space-between="20"
+            :breakpoints="{
+              480: {
+                slidesPerView: 2.5,
+              },
+              820 : {
+                slidesPerView: 3.5,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }"
+          >
+            <swiper-slide v-for="(a,i) in gaming" :key="i" >
+              <Card :a="a" @openModal="modalOpen"/>
+            </swiper-slide>
+          </swiper>
+        </div>
 
       </div> 
 
@@ -127,26 +136,29 @@
           <dt>TOP 100 음악</dt>
         </dl>
 
-        <swiper
-          class="grid"
-          :slides-per-view="1.5"
-          :space-between="20"
-          :breakpoints="{
-            480: {
-              slidesPerView: 2.5,
-            },
-            820 : {
-              slidesPerView: 3.5,
-            },
-            1280: {
-              slidesPerView: 4.5,
-            },
-          }"
-        >
-          <swiper-slide v-for="(a,i) in music" :key="i" >
-            <Card :a="a" @openModal="modalOpen"/>
-          </swiper-slide>
-        </swiper>
+        <div class="grid">
+          <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
+          <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
+          <swiper
+            :slides-per-view="1.5"
+            :space-between="20"
+            :breakpoints="{
+              480: {
+                slidesPerView: 2.5,
+              },
+              820 : {
+                slidesPerView: 3.5,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }"
+          >
+            <swiper-slide v-for="(a,i) in music" :key="i" >
+              <Card :a="a" @openModal="modalOpen"/>
+            </swiper-slide>
+          </swiper>
+        </div>
 
       </div>
 
@@ -157,26 +169,29 @@
           <dt>지금 뜨는 숏츠</dt>
         </dl>
 
-        <swiper
-          class="grid"
-          :slides-per-view="1.5"
-          :space-between="20"
-          :breakpoints="{
-            480: {
-              slidesPerView: 2.5,
-            },
-            820 : {
-              slidesPerView: 3.5,
-            },
-            1280: {
-              slidesPerView: 4.5,
-            },
-          }"
-        >
-          <swiper-slide v-for="(a,i) in popular" :key="i" >
-            <Card :a="a" :type="'lay-02'" @openModal="modalClose"/>
-          </swiper-slide>
-        </swiper>
+        <div class="grid">
+          <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
+          <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
+          <swiper
+            :slides-per-view="1.5"
+            :space-between="20"
+            :breakpoints="{
+              480: {
+                slidesPerView: 2.5,
+              },
+              820 : {
+                slidesPerView: 3.5,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }"
+          >
+            <swiper-slide v-for="(a,i) in gaming" :key="i" >
+              <Card :a="a" @openModal="modalOpen"/>
+            </swiper-slide>
+          </swiper>
+        </div>
 
       </div> 
 

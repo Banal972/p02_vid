@@ -1,7 +1,6 @@
 <template>
 
-    <div class="card-layout" @click="$emit('openModal',this.a.id.videoId ? this.a.id.videoId : this.a.id)">
-        
+    <div class="card-layout" @click="openModal">
         <div class="iframe">
             <img 
                 :src=" 
@@ -29,6 +28,22 @@
         props : {
             a : Object,
             type : String
+        },
+        methods: {
+            openModal(){
+                let id = "";
+                if(this.a.snippet.resourceId){
+                    id = this.a.snippet.resourceId.videoId;
+                }else{
+                    if(this.a.id.videoId){
+                        id = this.a.id.videoId;
+                    }else{
+                        id = this.a.id;
+                    }
+                }
+
+                this.$emit('openModal',id);
+            }
         },
     }
 
