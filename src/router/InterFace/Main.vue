@@ -9,7 +9,7 @@
         <dd>{{visual?.snippet.description}}</dd>
       </dl>
 
-      <iframe :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
+      <iframe :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1&loop=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
 
     </div>
 
@@ -22,12 +22,17 @@
           <dt>지금 가장 인기많은 영상</dt>
         </dl>
 
-        <div class="grid">
+        <div class="grid slide01">
           <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
           <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
           <swiper
             :slides-per-view="1.5"
             :space-between="20"
+            :navigation="{
+              nextEl : '.slide01 .next',
+              prevEl : '.slide01 .prev',
+            }"
+            :modules="modules" 
             :breakpoints="{
               480: {
                 slidesPerView: 2.5,
@@ -55,12 +60,17 @@
           <dt>인기 상승 게임영상</dt>
         </dl>
 
-        <div class="grid">
+        <div class="grid slide02">
           <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
           <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
           <swiper
             :slides-per-view="1.5"
             :space-between="20"
+            :navigation="{
+              nextEl : '.slide02 .next',
+              prevEl : '.slide02 .prev',
+            }"
+            :modules="modules"
             :breakpoints="{
               480: {
                 slidesPerView: 2.5,
@@ -81,19 +91,24 @@
 
       </div>
 
-      <!-- 채널 -->
+      <!-- 스포츠 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
-          <dt>인기상승 채널</dt>
+          <dt>스포츠</dt>
         </dl>
 
-        <div class="grid">
+        <div class="grid slide03">
           <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
           <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
           <swiper
             :slides-per-view="1.5"
             :space-between="20"
+            :navigation="{
+              nextEl : '.slide03 .next',
+              prevEl : '.slide03 .prev',
+            }"
+            :modules="modules"
             :breakpoints="{
               480: {
                 slidesPerView: 2.5,
@@ -106,8 +121,8 @@
               },
             }"
           >
-            <swiper-slide v-for="(a,i) in gaming" :key="i" >
-              <Card :a="a" @openModal="modalOpen"/>
+            <swiper-slide v-for="(a,i) in sport" :key="i" >
+              <Card :type="'lay-02'" :a="a" @openModal="modalOpen"/>
             </swiper-slide>
           </swiper>
         </div>
@@ -136,12 +151,17 @@
           <dt>TOP 100 음악</dt>
         </dl>
 
-        <div class="grid">
+        <div class="grid slide04">
           <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
           <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
           <swiper
             :slides-per-view="1.5"
             :space-between="20"
+            :navigation="{
+              nextEl : '.slide04 .next',
+              prevEl : '.slide04 .prev',
+            }"
+            :modules="modules"
             :breakpoints="{
               480: {
                 slidesPerView: 2.5,
@@ -162,19 +182,24 @@
 
       </div>
 
-      <!-- 숏츠 -->
+      <!-- 뉴스 -->
       <div class="popularity _wrap" left>
 
         <dl class="_tit">
-          <dt>지금 뜨는 숏츠</dt>
+          <dt>뉴스</dt>
         </dl>
 
-        <div class="grid">
+        <div class="grid slide05">
           <div class="next"><font-awesome-icon :icon="['fas', 'angle-right']" /></div>
           <div class="prev"><font-awesome-icon :icon="['fas', 'angle-left']" /></div>
           <swiper
             :slides-per-view="1.5"
             :space-between="20"
+            :navigation="{
+              nextEl : '.slide05 .next',
+              prevEl : '.slide05 .prev',
+            }"
+            :modules="modules"
             :breakpoints="{
               480: {
                 slidesPerView: 2.5,
@@ -187,8 +212,8 @@
               },
             }"
           >
-            <swiper-slide v-for="(a,i) in gaming" :key="i" >
-              <Card :a="a" @openModal="modalOpen"/>
+            <swiper-slide v-for="(a,i) in news" :key="i" >
+              <Card :type="'lay-02'" :a="a" @openModal="modalOpen"/>
             </swiper-slide>
           </swiper>
         </div>
@@ -214,10 +239,11 @@
   import "swiper/css"
 
   // 모듈
-  import axios from "axios"
-  import {Swiper,SwiperSlide} from "swiper/vue"
-  import { mapState } from 'vuex'
-  import gsap from 'gsap'
+  import axios from "axios";
+  import { Swiper,SwiperSlide } from "swiper/vue";
+  import { Navigation } from "swiper/modules";
+  import { mapState } from 'vuex';
+  import gsap from 'gsap';
 
   export default {
     name : "Main",
@@ -226,6 +252,8 @@
         popular : [],
         gaming : [],
         music : [],
+        news : [],
+        sport : [],
         viewClick : false,
         viewID : "",
         visual : null
@@ -237,6 +265,11 @@
       SwiperSlide,
       ViewModal
     },
+    setup(){
+      return {
+        modules: [Navigation],
+      }
+    },
     methods : {
       modalOpen(event){
         this.viewID = event;
@@ -246,107 +279,144 @@
         this.viewClick = false;
       }
     },
-    setup() {
-      const onSwiper = (swiper) => {
-        console.log(swiper);
-      };
-      const onSlideChange = () => {
-        console.log('slide change');
-      };
-      return {
-        onSwiper,
-        onSlideChange,
-      };
-    },
     computed : {
       ...mapState(['user'])
     },
     async mounted(){
 
-      // 메인 비주얼
-      axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
-        params: {
-          part : "snippet",
-          id : 'lyeLYUCalNw',
-          key : process.env.VUE_APP_YOUTUBE_API_KEY
-        }
-      })
-      .then(({data})=>{
-        this.visual = data.items[0];
-      })
-      .catch(e=>{
+
+      const first = async ()=>{
+
+        const array = [];
+
+        // 인기
+        await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+          params: {
+            part : "snippet",
+            chart : "mostPopular",
+            regionCode  : "KR",
+            maxResults : 10,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.popular = data.items;
+          array.push(...data.items);
+        });
+
+        // 게임
+        await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+          params: {
+            part : "snippet",
+            chart : "mostPopular",
+            regionCode  : "KR",
+            maxResults : 10,
+            videoCategoryId : 20,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.gaming = data.items;
+          array.push(...data.items);
+        });
+
+        // 스포츠
+        await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+          params: {
+            part : "snippet",
+            chart : "mostPopular",
+            regionCode  : "KR",
+            maxResults : 10,
+            videoCategoryId : 17,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.sport = data.items;
+          array.push(...data.items);
+        });
+
+        // Top 100 인기곡
+        await axios.get("https://youtube.googleapis.com/youtube/v3/playlistItems",{
+          params: {
+            part : "snippet",
+            playlistId : "PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m",
+            maxResults : 10,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.music = data.items;
+          array.push(...data.items);
+        });
+
+        // 뉴스
+        axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+          params: {
+            part : "snippet",
+            chart : "mostPopular",
+            regionCode  : "KR",
+            maxResults : 10,
+            videoCategoryId : 25,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.news = data.items;
+        });
+
+        return array;
+        
+      }
+
+      const second = (arr)=>{
+
+        const random = Math.floor(Math.random() * arr.length);
+
+        // 메인 비주얼
+        axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+          params: {
+            part : "snippet",
+            id : arr[random].id,
+            key : process.env.VUE_APP_YOUTUBE_API_KEY
+          }
+        })
+        .then(({data})=>{
+          this.visual = data.items[0];
+        })
+        .catch(e=>{
+          console.log(e);
+        });
+
+        gsap.timeline()
+        .fromTo(this.$refs.title.querySelector('dt'),{
+          x : -50,
+          opacity : 0
+        },{
+          opacity : 1,
+          x : 0
+        })
+        .fromTo(this.$refs.title.querySelector('dd'),{
+          x : -50,
+          opacity : 0
+        },{
+          x : 0,
+          opacity : 1
+        });
+
+      }
+
+      try {
+
+        const array = await first();
+        await second(array);
+        
+      } catch(e){
         console.log(e);
-      });
+      }
 
 
-      gsap.timeline()
-      .fromTo(this.$refs.title.querySelector('dt'),{
-        x : -50,
-        opacity : 0
-      },{
-        opacity : 1,
-        x : 0
-      })
-      .fromTo(this.$refs.title.querySelector('dd'),{
-        x : -50,
-        opacity : 0
-      },{
-        x : 0,
-        opacity : 1
-      });
-
-      // 인기
-      await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
-        params: {
-          part : "snippet",
-          chart : "mostPopular",
-          regionCode  : "KR",
-          maxResults : 10,
-          key : process.env.VUE_APP_YOUTUBE_API_KEY
-        }
-      })
-      .then(({data})=>{
-        this.popular = data.items;
-      })
-      .catch(e=>{
-        console.log(e);
-      });
-
-      // 게임
-      await axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
-        params: {
-          part : "snippet",
-          chart : "mostPopular",
-          regionCode  : "KR",
-          maxResults : 10,
-          videoCategoryId : 20,
-          key : process.env.VUE_APP_YOUTUBE_API_KEY
-        }
-      })
-      .then(({data})=>{
-        this.gaming = data.items;
-      })
-      .catch(e=>{
-        console.log(e);
-      });
-
-
-      // Top 100 인기곡
-      await axios.get("https://youtube.googleapis.com/youtube/v3/playlistItems",{
-        params: {
-          part : "snippet",
-          playlistId : "PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m",
-          maxResults : 10,
-          key : process.env.VUE_APP_YOUTUBE_API_KEY
-        }
-      })
-      .then(({data})=>{
-        this.music = data.items;
-      })
-      .catch(e=>{
-        console.log(e);
-      });
-
+      
 
     }
   }

@@ -43,7 +43,7 @@
     }
 
     .pin {
-        height: rem(75); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: rem(75); border-radius: rem(5); width: 100%; background: rgb(37, 169, 130);
+        height: rem(75); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: rem(75); border-radius: rem(5); width: 100%; background: rgb(37, 169, 130); cursor: pointer;
         span {
             display: block; font-size: rem(14); margin-top: rem(5);
         }

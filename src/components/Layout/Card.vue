@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-layout" @click="openModal">
+    <div :class="type" class="card-layout" @click="openModal">
         <div class="iframe">
             <img 
                 :src=" 

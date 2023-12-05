@@ -52,26 +52,35 @@
             modalClose(){
                 this.viewClick = false;
             },
+            getData(){
+                axios.get(`https://www.googleapis.com/youtube/v3/search`,{
+                    params : {
+                        q : this.$route.params.data,
+                        part : "snippet",
+                        regionCode : "KR",
+                        relevanceLanguage : "ko",
+                        maxResults : 12,
+                        key : process.env.VUE_APP_YOUTUBE_API_KEY
+                    }
+                })
+                .then(({data})=>{
+                    this.searchData = data.items;
+                })
+                .catch(e=>{
+                    console.log(e);
+                })
+            }
         },
         mounted(){
+            
+            this.getData();
 
-            axios.get(`https://www.googleapis.com/youtube/v3/search`,{
-                params : {
-                    q : this.$route.params.data,
-                    part : "snippet",
-                    regionCode : "KR",
-                    relevanceLanguage : "ko",
-                    maxResults : 12,
-                    key : process.env.VUE_APP_YOUTUBE_API_KEY
+            this.$watch(
+                () => this.$route.params.data,
+                () => {
+                    this.getData();
                 }
-            })
-            .then(({data})=>{
-                this.searchData = data.items;
-            })
-            .catch(e=>{
-                console.log(e);
-            })
-
+            )
         }
     }
 </script>

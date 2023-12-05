@@ -5,14 +5,27 @@
         <div class="search-window" ref="window">
 
             <div class="flex">
-                <div class="icon"><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></div> <input type="text" ref="input" @keydown="onEnter" @input="this.input = $event.target.value">
+                <div class="icon"><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></div> <input 
+                    type="text" 
+                    ref="input" 
+                    @keydown="onEnter" 
+                    @input="this.input = $event.target.value"
+                    :value="input"
+                >
             </div>
 
             <div class="late">
                 <p>최근 검색 기록</p>
                 <ul>
                     <li v-if="prevSearch.length <= 0">최근 검색기록이 없습니다</li>
-                    <li v-for="(a,i) in prevSearch" :key="i">{{ a }}</li>
+                    <li 
+                        v-for="(a,i) in prevSearch" 
+                        :key="i" 
+                        @click="onClick" 
+                        style="cursor: pointer;"
+                    >
+                        {{ a }}
+                    </li>
                 </ul>
             </div>
 
@@ -56,10 +69,25 @@
                         return this.$refs.input.focus();
                     }
                     
+                    const rs = this.prevSearch.findIndex(e=>e == this.input);
+                    console.log(rs);
+
+                    if( rs < 0){
+                        this.prevSearch.push(this.input);
+                    }
+
                     this.$router.push(`/search/${this.input}`);
-                    this.prevSearch.push(this.input);
 
                 }
+            },
+            onClick(e){
+
+                const text = e.target.innerText;
+
+                const rs = this.prevSearch.findIndex(e=>e == text);
+
+                this.$router.push(`/search/${text}`);
+
             },
             toggle(){
                 this.openSearch = true;
@@ -113,7 +141,7 @@
                         });
 
                     }
-
+                    this.input = "";
                     this.openSearch = false;
                 }
             )
