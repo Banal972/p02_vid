@@ -51,7 +51,16 @@
 
                 gsap.timeline({
                     onComplete : ()=>{
-                        this.$router.push(`/user/select/${id}`);
+
+                        const sp = this.$store.getters.profileGet.filter(e=>e.id == id)[0];
+
+                        if(sp.pin){
+                            this.$router.push(`/user/select/${id}`);
+                        }else{
+                            this.$store.commit('profileLogin',id);
+                            this.$router.push('/');
+                        }
+
                     }
                 })
                 .set(e.currentTarget,{
@@ -71,7 +80,7 @@
         },
         created() {
             if(this.user.profile.length <= 0){
-                alert('프로필이 존재하지 않습니다.')
+                alert('프로필이 존재하지 않습니다.');
                 return this.$router.push('/user/profile/add');
             }
         },

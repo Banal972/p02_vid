@@ -51,7 +51,7 @@
             ...mapState(['user'])
         },
         mounted() {
-            const filter = this.user.profile.filter(e=>e.id === this.$route.params.id);
+            const filter = this.user.profile.filter(e=>e.id == this.$route.params.id);
             this.userData = filter[0];
         },
         methods: {

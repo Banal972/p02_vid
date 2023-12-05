@@ -21,12 +21,12 @@
                 
                 <Search/>
 
-                <router-link to="/auth" v-if="user == undefined">로그인</router-link>
+                <router-link to="/auth" v-if="user == null">로그인</router-link>
 
-                <div class="user-info" v-if="user !== undefined">
+                <div class="user-info" v-if="user !== null">
                     <div class="user-icon" :style="`background-image:url(${selectUser?.img})`"></div>
 
-                    <!-- <div class="info-box">
+                    <div class="info-box">
                         <ul class="member">
                             <li 
                                 v-for="(a,i) in profile" 
@@ -36,17 +36,17 @@
                                 <div class="user-icon" :style="`background-image:url(${a.img})`"></div>
                                 <p class="name">{{a.name}}</p>
                             </li>
-                            <li @click="$router.push('/user/add')">
+                            <li @click="addProfile">
                                 <div class="user-icon" :style="`background-image:url(/img/plus.jpg)`"></div>
                                 <p class="name">프로필 추가</p>
                             </li>
                         </ul>
 
                         <ul class="nav">
-                            <li @click="$router.push(`/user/${selectUser.id}/update`)">프로필 수정</li>
+                            <li @click="$router.push(`/user/profile/${selectUser.id}`)">프로필 수정</li>
                             <li @click="$store.commit('authLogout')">로그아웃</li>
                         </ul>
-                    </div> -->
+                    </div>
 
                 </div>
 
@@ -81,11 +81,19 @@
         computed : {
             ...mapState(['user'])
         },
+        methods: {
+            addProfile(){
+                if(this.user.profile.length >= 5){
+                    return alert('프로필은 5개 이상 생성할 수 없습니다.');
+                }
+                this.$router.push('/user/profile/add');
+            }
+        },
         watch : {
-            /* user: {
+            user: {
                 handler(val){
                     
-                    if(val != undefined){
+                    if(val != null){
                         const selectUser = val.profile.filter(el=>el.select == true)[0];
                         this.selectUser = selectUser;
 
@@ -100,15 +108,15 @@
 
                 },
                 deep : true
-            } */
+            }
         },
         created() {
             
-            /* const selectUser = this.user.profile.filter(el=>el.select == true)[0];
+            const selectUser = this.user?.profile.filter(el=>el.select == true)[0];
             this.selectUser = selectUser;
 
-            const profile = this.user.profile.filter(el=>el.select == false);
-            this.profile = profile; */
+            const profile = this.user?.profile.filter(el=>el.select == false);
+            this.profile = profile;
 
         },
     }

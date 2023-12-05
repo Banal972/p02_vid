@@ -26,7 +26,6 @@ import Sign from "../router/User/Sign/Sign.vue";
 import ProfileSelect from "../router/User/Select/ProfileSelect.vue";
 import ProfilePin from "../router/User/Select/ProfilePin.vue";
 import ProfileAdd from "../router/User/Profile/Add/Add.vue"
-import { nextTick } from "vue";
 
 
 
@@ -39,6 +38,11 @@ const routes = [
       {
         path : "",
         component : Main
+      },
+      {
+        path : "list/like",
+        component : List,
+        meta : { requiresAuth : true }
       },
       {
         path : "list/:type",
@@ -60,11 +64,11 @@ const routes = [
   },
   {
     path : "/auth/find",
-    component : Find
+    component : Find,
   },
   {
     path : "/auth/sign",
-    component : Sign
+    component : Sign,
   },
   {
     path : "/user/select",
@@ -73,11 +77,18 @@ const routes = [
   },
   {
     path : "/user/select/:id",
-    component : ProfilePin
+    component : ProfilePin,
+    meta : { requiresAuth : true }
   },
   {
     path : "/user/profile/add",
-    component : ProfileAdd
+    component : ProfileAdd,
+    meta : { requiresAuth : true }
+  },
+  {
+    path : "/user/profile/:id",
+    component : ProfileAdd,
+    meta : { requiresAuth : true }
   },
   {
     path: "/:pathMatch(.*)*",
@@ -93,9 +104,10 @@ const router = createRouter({
 //auth
 router.beforeEach((to,from,next)=>{
 
+  // 로그인이 안되어있으면
   if(to.meta.requiresAuth && !store.getters.getUser){
     alert('로그인을 해야 접속하실수 있습니다.');
-    next({ path : "/auth" });
+    return next({ path : "/auth" });
   }else {
     next();
   }

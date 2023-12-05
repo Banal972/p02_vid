@@ -35,7 +35,7 @@
 
                 <div class="flex">
                     <div class="chek">
-                        <input type="checkbox" id="save"> <label for="save">아이디 저장</label>
+                        <input type="checkbox" id="save" @change="saveId" :checked="saveid"> <label for="save">아이디 저장</label>
                     </div>
 
                     <router-link to="/auth/find">아이디 / 비밀번호 찾기</router-link>
@@ -57,15 +57,32 @@
 </template>
 <script>
 
+    import {useCookies} from "vue3-cookies"
+
     export default {
         name : "Login",
+        setup(){
+            const { cookies } = useCookies();
+            return { cookies };
+        },
         data() {
             return {
                 userId : "",
-                userPw : ""
+                userPw : "",
+                saveid : false,
+            }
+        },
+        mounted() {
+            let idGet = this.cookies.get("cookie-user");
+            if(idGet){
+                this.userId = idGet;
+                this.saveid = true;
             }
         },
         methods: {
+            saveId(e){
+                this.saveid = e.target.checked;
+            },
             login(e){
 
                 e.preventDefault();
@@ -87,10 +104,9 @@
                 }
 
                 this.$store.commit('authLogin',this.userId);
-                
                 alert('로그인에 성공하였습니다.');
-
-                this.$router.push('/');
+                this.cookies.set("cookie-user",this.userId);
+                this.$router.push('/user/select');
 
             }
         },

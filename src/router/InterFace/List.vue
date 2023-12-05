@@ -51,7 +51,9 @@
                 this.viewClick = false;
             },
             updateTitle(to){
-                const type = to.type;
+
+                const type = to[0].type;
+                const path = to[1];
 
                 let like = false;
 
@@ -63,34 +65,37 @@
                     key : process.env.VUE_APP_YOUTUBE_API_KEY
                 }
 
-                switch (type) {
-                    case "popular":
-                        this.title = "인기 영상"
-                        break;
-                    case "music":
-                        this.title = "음악"
-                        params['videoCategoryId'] = 10;
-                        break;
+                if(path != "/list/like"){
 
-                    case "gaming":
-                        this.title = "게임"
-                        params['videoCategoryId'] = 20;
-                        break;
+                    switch (type) {
+                        case "popular":
+                            this.title = "인기 영상"
+                            break;
+                        case "music":
+                            this.title = "음악"
+                            params['videoCategoryId'] = 10;
+                            break;
 
-                    case "news":
-                        this.title = "뉴스"
-                        params['videoCategoryId'] = 25;
-                        break;
+                        case "gaming":
+                            this.title = "게임"
+                            params['videoCategoryId'] = 20;
+                            break;
 
-                    case "sport":
-                        this.title = "스포츠"
-                        params['videoCategoryId'] = 17;
-                        break;
+                        case "news":
+                            this.title = "뉴스"
+                            params['videoCategoryId'] = 25;
+                            break;
 
-                    case "like":
-                        this.title = "관심 콘텐츠"
-                        like = true;
-                        break;
+                        case "sport":
+                            this.title = "스포츠"
+                            params['videoCategoryId'] = 17;
+                            break;
+                    }
+
+                }else{
+
+                    this.title = "관심 콘텐츠"
+                    like = true;
 
                 }
 
@@ -137,10 +142,10 @@
         },
         created(){
 
-            this.updateTitle(this.$route.params);
+            this.updateTitle([this.$route.params,this.$route.fullPath]);
 
             this.$watch(
-                () => this.$route.params,
+                () => [this.$route.params,this.$route.fullPath],
                 (to)=>{
                     this.updateTitle(to);
                     window.scrollTo(0,0);

@@ -4,13 +4,15 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      user : {
-        userID : "test2",
-        userName : "테스트2",
-        userEmail : "test2@test.com",
-        profile : []
-      },
+      user : null,
       member : [
+        {
+          userID : "test2",
+          userName : "테스트2",
+          userEmail : "test2@test.com",
+          userPW : "!xptmxm123",
+          profile : []
+        },
         {
           userID : "test",
           userName : "테스트",
@@ -21,11 +23,9 @@ const store = createStore({
               id : "0123456",
               img : "/img/profile.png",
               name : "프로필1",
-              select : true,
+              select : false,
               pin : "0722",
-              likeVid : [
-                "zefga5_GEyY",
-              ]
+              likeVid : []
             },
             {
               id : "0123457",
@@ -43,9 +43,7 @@ const store = createStore({
               name : "프로필3",
               select : false,
               pin : "4567",
-              likeVid : [
-                "zefga5_GEyY"
-              ]
+              likeVid : []
             },
             {
               id : "0123459",
@@ -53,9 +51,7 @@ const store = createStore({
               name : "프로필4",
               select : false,
               pin : "0124",
-              likeVid : [
-                "zefga5_GEyY"
-              ]
+              likeVid : []
             },
             {
               id : "0123460",
@@ -63,22 +59,28 @@ const store = createStore({
               name : "프로필5",
               select : false,
               pin : "7896",
-              likeVid : [
-                "zefga5_GEyY"
-              ]
+              likeVid : []
             }
           ]
         }
       ]
     }
   },
+
   getters : {
     getUser(state){
       return state.user;
+    },
+    profileGet(state){
+      return state.user.profile;
     }
   },
+
   mutations : { // 수정
-    likevid(state,payload){ // 영상 관심 추가 및 삭제
+
+    // 영상 관심 추가 및 삭제
+    likevid(state,payload){
+
       const rs = state.user.profile.findIndex(e=>e.select);
       const rs2 = state.user.profile[rs].likeVid.findIndex(e=>e === payload);
       
@@ -89,6 +91,7 @@ const store = createStore({
       }
 
     },
+
     // 프로필 생성
     profileAdd(state,payload){
       
@@ -98,20 +101,70 @@ const store = createStore({
 
       const timestamp =  new Date().getTime(); // 지금 시간 타임스탭
       const random = Math.floor(Math.random() * 1000); // 랜덤 숫자
-      let token = timestamp - random 
+      let token = timestamp - random
 
-      state.user.profile.push(
-        {
-          id : token,
-          img : payload.imgURL,
-          name : payload.name,
-          select : false,
-          pin : null,
-          likeVid : []
-        }
-      )
+      let imgURL = "";
+      let pin = "";
+
+      if(payload.imgURL == ""){
+        imgURL = "/img/profile.png";
+      }else{
+        imgURL = payload.imgURL;
+      }
+
+      if(payload.pin == ""){
+        pin = null;
+      }else{
+        pin = payload.pin;
+      }
+
+      const data = {
+        id : token,
+        img : imgURL,
+        name : payload.name,
+        select : false,
+        pin : pin,
+        likeVid : []
+      }
+
+      state.user.profile.push(data);
 
     },
+
+    profileUpdate(state,payload){
+
+      const rs = state.user.profile.findIndex(e=>e.id == payload.id);
+      const filter = state.user.profile.filter(e=>e.id == payload.id)[0];
+
+      let imgURL = "";
+      let pin = "";
+
+      if(payload.imgURL == ""){
+        imgURL = "/img/profile.png";
+      }else{
+        imgURL = payload.imgURL;
+      }
+
+      if(payload.pin == ""){
+        pin = null;
+      }else{
+        pin = payload.pin;
+      }
+
+      const data = {
+        id : payload.id,
+        img : imgURL,
+        name : payload.name,
+        pin : pin
+      }
+
+      state.user.profile[rs] = {
+        ...filter,
+        ...data
+      }
+
+    },
+
     profileLogin(state,payload){
       const rs = state.user.profile.findIndex(e=>e.id == payload);
 
@@ -123,9 +176,12 @@ const store = createStore({
       });
 
     },
+
+    // 로그아웃
     authLogout(state){
-      state.user = undefined;
+      state.user = null;
     },
+    // 로그인
     authLogin(state,payload){
 
       const filter = state.member.filter(e=>e.userID == payload)[0];
@@ -139,6 +195,7 @@ const store = createStore({
       state.user = data;
 
     },
+    // 회원가입
     addMember(state,payload){
       console.log(payload);
       state.member.push({
