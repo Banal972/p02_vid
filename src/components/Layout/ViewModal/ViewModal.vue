@@ -182,6 +182,9 @@
         },
         watch : {
             dataID(){
+                // 데이터 변경시 한번 초기화
+                this.like = false;
+                this.bounce = false;
                 this.axiosFunc();
             }
         },

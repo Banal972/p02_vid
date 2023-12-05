@@ -42,6 +42,16 @@
         computed : {
             ...mapState(['user'])
         },
+        watch : {
+            user: {
+                handler(){
+                    if(this.user){
+                        this.likeGet();
+                    }
+                },
+                deep : true // 배열이나 객체가 수정되도 강제적으로 가져옴
+            }
+        },
         methods: {
             modalOpen(event){
                 this.viewID = event;
@@ -49,6 +59,25 @@
             },
             modalClose(){
                 this.viewClick = false;
+            },
+            likeGet(){
+                const profile = this.user.profile.filter(e=>e.select)[0];
+
+                const vidID = profile.likeVid;
+
+                axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
+                    params : {
+                        part : "snippet",
+                        id : vidID.join(','), // 비디오 요청 보낼때 , 를 붙여서 보냄
+                        key : process.env.VUE_APP_YOUTUBE_API_KEY
+                    }
+                })
+                .then(({data})=>{
+                    this.data = data.items;
+                })
+                .catch(e=>{
+                    console.log(e);
+                });
             },
             updateTitle(to){
 
@@ -114,25 +143,7 @@
                 }else{
 
                     if(this.user){
-
-                        const profile = this.user.profile.filter(e=>e.select)[0];
-
-                        const vidID = profile.likeVid;
-
-                        axios.get("https://youtube.googleapis.com/youtube/v3/videos",{
-                            params : {
-                                part : "snippet",
-                                id : vidID.join(','), // 비디오 요청 보낼때 , 를 붙여서 보냄
-                                key : process.env.VUE_APP_YOUTUBE_API_KEY
-                            }
-                        })
-                        .then(({data})=>{
-                            this.data = data.items;
-                        })
-                        .catch(e=>{
-                            console.log(e);
-                        });
-
+                        this.likeGet();
                     }
 
                 }
