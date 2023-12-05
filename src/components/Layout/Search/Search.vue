@@ -47,8 +47,6 @@
         methods : {
             onEnter(e){
 
-                console.log(e);
-
                 if(e.key == "Enter"){
 
                     if(this.input == ""){
@@ -63,18 +61,21 @@
             toggle(){
                 this.openSearch = true;
 
-                gsap.fromTo(this.$refs.window,{
-                    width: 0,
-                },{
-                    width: "20rem",
-                    onStart : ()=>{
-                        this.$refs.input.focus();
-                    },
-                    onComplete : ()=>{
-                        document.addEventListener('click',this.close);
-                    }
-                });
-                
+                if(this.$refs.window){
+
+                    gsap.fromTo(this.$refs.window,{
+                        width: "0rem",
+                    },{
+                        width: "20rem",
+                        onStart : ()=>{
+                            this.$refs.input.focus();
+                        },
+                        onComplete : ()=>{
+                            document.addEventListener('click',this.close);
+                        }
+                    });
+
+                }
 
             },
             close(e){
@@ -83,15 +84,23 @@
                     return;
                 }
 
-                gsap.fromTo(this.$refs.window,{
-                    width: "20rem",
-                },{
-                    width: 0,
-                });
+                if(this.$refs.window){
+
+                    gsap.fromTo(this.$refs.window,{
+                        width: "20rem",
+                    },{
+                        width: "0rem",
+                    });
+
+                }
+
                 this.openSearch = false;
 
             }
-        }
+        },
+        mounted() {
+            gsap.set(this.$refs.window,{width:"0rem"});
+        },
     }
 </script>
 

@@ -24,9 +24,10 @@
                 <router-link to="/auth" v-if="user == null">로그인</router-link>
 
                 <div class="user-info" v-if="user !== null">
-                    <div class="user-icon" :style="`background-image:url(${selectUser?.img})`"></div>
 
-                    <div class="info-box">
+                    <div class="user-icon" :style="`background-image:url(${selectUser?.img})`" @click="this.profileInfo = !this.profileInfo"></div>
+
+                    <div class="info-box" v-if="profileInfo">
                         <ul class="member">
                             <li 
                                 v-for="(a,i) in profile" 
@@ -72,7 +73,8 @@
         data() {
             return {
                 selectUser : null,
-                profile : null
+                profile : null,
+                profileInfo : false
             }
         },
         components : {
@@ -107,7 +109,7 @@
                     }
 
                 },
-                deep : true
+                deep : true // 데이터 안의 배열이 변동되도 가져옴
             }
         },
         created() {

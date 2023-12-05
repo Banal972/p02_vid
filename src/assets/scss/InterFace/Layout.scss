@@ -76,7 +76,7 @@
             position: relative;
 
             .user-icon {
-                width: rem(40); background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 1000px; position: relative; z-index: 3;
+                width: rem(40); background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 1000px; position: relative; z-index: 3; cursor: pointer;
                 &::after {
                     display: block; padding-bottom: 100%; content: '';
                 }

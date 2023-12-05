@@ -10,13 +10,13 @@
 
     .search-window {
 
-        position: absolute; right: 0; top: 0; width: 0; overflow: hidden; visibility: visible;
+        position: absolute; right: 0; top: 0; overflow: hidden; visibility: visible; transform-origin: right;
         
         .flex {
             display: flex; align-items: center; background: rgb(37, 169, 130); border-radius: rem(5);
 
             input {
-                height: 35px;
+                height: 35px; min-width: 0;
             }
             .icon {
                 font-size: rem(20); margin: 0 rem(10); margin-right: rem(5);
