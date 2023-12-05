@@ -12,7 +12,7 @@
         overflow-y: auto; height: 100%;  position: relative; z-index: 2; padding: 75px 0; box-sizing: border-box; width: 100%;
 
         .cont {
-            background: #161616; width: 75%; max-width: 750px; border-radius: rem(15); margin: 0 auto; overflow: hidden;
+            background: #161616; width: 80%; max-width: 750px; border-radius: rem(15); margin: 0 auto; overflow: hidden;
     
             .modal_iframe {
                 width: 100%; position: relative;
@@ -39,6 +39,15 @@
                         content: ''; display: block; padding-bottom: 100%;
                     }
                 }
+                
+
+                @include max(820){
+
+                    .play {
+                        width: 60px; font-size: rem(20);
+                    }
+
+                }
     
             }
     
@@ -49,12 +58,12 @@
                     display: flex; justify-content: space-between; align-items: flex-start;
 
                     .tit {
-                        flex: 0.8;
+                        flex: 0.8; min-width: 0;
                         dt {
                             font-size: rem(18);
                         }
                         dd {
-                            font-size: rem(28); font-weight: bold; margin-top: rem(15);
+                            font-size: rem(28); font-weight: bold; margin-top: rem(15); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
                         }
             
                     }
@@ -84,6 +93,20 @@
                     }
     
         
+                }
+
+                @include max(820){
+
+                    .flex {
+
+                        .tit {
+                            dd {
+                                font-size: rem(24);
+                            }
+                        }
+
+                    }
+
                 }
     
             }
