@@ -89,17 +89,35 @@
 
                 if(this.$refs.window){
 
-                    gsap.fromTo(this.$refs.window,{
-                        width: "0rem",
-                    },{
-                        width: "20rem",
-                        onStart : ()=>{
-                            this.$refs.input.focus();
-                        },
-                        onComplete : ()=>{
-                            document.addEventListener('click',this.close);
-                        }
-                    });
+                    if(window.innerWidth >= 821){
+
+                        gsap.fromTo(this.$refs.window,{
+                            width: "0rem",
+                        },{
+                            width: "20rem",
+                            onStart : ()=>{
+                                this.$refs.input.focus();
+                            },
+                            onComplete : ()=>{
+                                document.addEventListener('click',this.close);
+                            }
+                        });
+
+                    }else{
+
+                        gsap.fromTo(this.$refs.window,{
+                            width: "0rem",
+                        },{
+                            width: "15rem",
+                            onStart : ()=>{
+                                this.$refs.input.focus();
+                            },
+                            onComplete : ()=>{
+                                document.addEventListener('click',this.close);
+                            }
+                        });
+
+                    }
 
                 }
 
@@ -112,12 +130,22 @@
 
                 if(this.$refs.window){
 
-                    gsap.fromTo(this.$refs.window,{
-                        width: "20rem",
-                    },{
-                        width: "0rem",
-                    });
+                    if(window.innerWidth >= 821){
+                        gsap.fromTo(this.$refs.window,{
+                            width: "20rem",
+                        },{
+                            width: "0rem",
+                        });
+                    }else{
 
+                        gsap.fromTo(this.$refs.window,{
+                            width: "15rem",
+                        },{
+                            width: "0rem",
+                        });
+
+                    }
+                    
                 }
 
                 this.openSearch = false;

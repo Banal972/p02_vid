@@ -9,7 +9,7 @@
         <dd>{{visual?.snippet.description}}</dd>
       </dl>
 
-      <iframe :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1&loop=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
+      <iframe :src="`https://www.youtube.com/embed/${visual?.id}?controls=0&amp;autoplay=1&amp;mute=1&amp;loop=1`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen v-if="visual"></iframe>
 
     </div>
 
@@ -369,6 +369,7 @@
         
       }
 
+      // 출력한 영상들 랜덤으로 1개 가져와서 메인비주얼 출력
       const second = (arr)=>{
 
         const random = Math.floor(Math.random() * arr.length);

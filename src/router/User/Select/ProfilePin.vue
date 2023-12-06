@@ -14,7 +14,7 @@
                 <div class="inb-b" ref="inbs">
                     <div class="input" v-for="(a,i) in pins" :key="a">
                         <input 
-                            type="password" 
+                            type="number" 
                             :value="pins[i]"
                             :ref="`pinInput${i}`"
                             pattern="[0-9]+"

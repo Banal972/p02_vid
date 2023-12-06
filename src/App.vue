@@ -30,7 +30,7 @@
   }
 
   html {
-      font-size: $rem+"px"; letter-spacing: -0.025em; font-family: "Pretendard";
+      font-size: $rem+"px"; letter-spacing: -0.025em; font-family: "Pretendard"; background: #000;
 
       @include max(820) {
           font-size: 14px;
@@ -55,6 +55,13 @@
   select,
   input {
     padding : 0 0.5em;
+  }
+
+  // 인풋 number 버튼 삭제
+  input::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
   }
 
   option {

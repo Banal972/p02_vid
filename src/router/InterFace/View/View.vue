@@ -3,11 +3,11 @@
 
         <div class="head _wrap">
             <p @click="this.$router.go(-1)">
-                <font-awesome-icon :icon="['fas', 'angle-left']" /> {{title}}
+                <font-awesome-icon :icon="['fas', 'angle-left']" /> <span>{{title}}</span>
             </p>
         </div>
 
-        <div class="volum">
+        <div class="volum" :class="mob && 'mob'">
             <font-awesome-icon :icon="['fas', 'volume-high']" />
             
             <div class="range">
@@ -19,7 +19,8 @@
         <VueYtframe
             :video-id="$route.params.id"
             ref="vf"
-            :playerVars="{controls : 0, autoplay : 1}"
+            :playerVars="{controls : 0}"
+            @ready = "readyHandler"
             @stateChange="stateHandler"
         />
 
@@ -35,11 +36,13 @@
                 <span :style="`width:${playState}%`"></span>
             </div>
 
-            <div class="full-screen" @click="full" v-if="!fullScreen">
-                <font-awesome-icon :icon="['fas', 'maximize']" />
-            </div>
-            <div class="full-screen" @click="full" v-else>
-                <font-awesome-icon :icon="['fas', 'minimize']" />
+            <div v-if="!mob">
+                <div class="full-screen" @click="full" v-if="!fullScreen">
+                    <font-awesome-icon :icon="['fas', 'maximize']" />
+                </div>
+                <div class="full-screen" @click="full" v-else>
+                    <font-awesome-icon :icon="['fas', 'minimize']" />
+                </div>
             </div>
 
         </div>
@@ -47,8 +50,6 @@
     </div>
 </template>
 <script>
-import { faThemeisle } from '@fortawesome/free-brands-svg-icons';
-
 
     export default {
         name : "View",
@@ -58,7 +59,8 @@ import { faThemeisle } from '@fortawesome/free-brands-svg-icons';
                 title : "",
                 fullScreen : false,
                 playState : 0,
-                volumState : 0
+                volumState : 0,
+                mob : false,
             }
         },
         watch : {
@@ -78,13 +80,24 @@ import { faThemeisle } from '@fortawesome/free-brands-svg-icons';
                 this.$refs.vf.pauseVideo();
             },
             full(){
-                if(!this.fullScreen){
-                    document.documentElement.requestFullscreen(); // 전체화면
-                    this.fullScreen = true;
-                }else{
-                    document.exitFullscreen(); // 창모드
-                    this.fullScreen = false;
+
+                let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? true : false;
+
+                if(!isMobile){
+
+                    if(!this.fullScreen){
+                        document.documentElement.requestFullscreen(); // 전체화면
+                        this.fullScreen = true;
+                    }else{
+                        document.exitFullscreen(); // 창모드
+                        this.fullScreen = false;
+                    }
+
                 }
+
+            },
+            readyHandler(e){
+                e.playVideo();
             },
             stateHandler(e){
                 this.title = e.videoTitle;
@@ -110,6 +123,31 @@ import { faThemeisle } from '@fortawesome/free-brands-svg-icons';
                 },100);
 
             }
+        },
+        mounted() {
+            let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? true : false;
+
+            if(isMobile){
+                this.mob = true;
+            }else{
+                this.mob = false;
+            }
+
+            window.addEventListener('resize',()=>{
+                let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? true : false;
+
+                if(isMobile){
+                    this.mob = true;
+                }else{
+                    
+                    if(window.innerWidth < 821){
+                        this.mob = true;
+                    }else{
+                        this.mob = false;
+                    }
+                    
+                }
+            });
         },
     }
 </script>

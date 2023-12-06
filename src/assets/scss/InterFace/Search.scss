@@ -19,13 +19,17 @@
     }
 
     .found {
-        text-align: center; font-size: 48px; color: #fff; font-weight: bold; margin-top: 100px;
+        text-align: center; font-size: rem(48); color: #fff; font-weight: bold; margin-top: 100px;
     }
 
 
     @include max(820){
 
         padding: 80px 0;
+
+        .found {
+            font-size: rem(32);
+        }
 
         .grid {
             grid-template-columns: repeat(3,1fr); gap: rem(50) rem(15);

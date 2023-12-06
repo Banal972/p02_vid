@@ -117,9 +117,10 @@
     }
 
     .menu {
-        position: absolute; width: 25px; height: 15px; right: 2.5%; top: 50%; transform: translateY(-50%); cursor: pointer;
+        position: absolute; width: 25px; height: 15px; right: 2.5%; top: 50%; transform: translateY(-50%); cursor: pointer; z-index: 99999; display: none;
+
         span {
-            position: absolute; top: 0; right: 0; height: 3px; width: 100%; background: #fff;
+            position: absolute; top: 0; right: 0; height: 3px; width: 100%; background: #fff; transition: .4s;
             &:nth-of-type(1) {
                 top: 0;
             }
@@ -130,41 +131,84 @@
                 top: 100%;
             }
         }
+
+        &.act {
+
+            span {
+                &:nth-of-type(1) {
+                    transform: rotate(45deg); top: 50%;
+                }
+                &:nth-of-type(2) {
+                    transform: translateX(-100%); opacity: 0;
+                }
+                &:nth-of-type(3) {
+                    transform: rotate(-45deg); top: 50%;
+                }
+            }
+
+        }
+
     }
 
-    @include min(821) {
-        .menu {
+    @include max(820){
+        ._wrap {
+            height: 50px;
+        }
+    }
+
+}
+
+// 모바일 메뉴
+.fullHeader {
+
+    position: fixed; right: -100%; top: 0; height: 100%; width: 80%; max-width: 450px; z-index: 9999; background: #00000d; color: #fff; box-sizing: border-box; padding: 50px 0 0;
+    font-size: rem(24); display: none; flex-direction: column; justify-content: space-between;
+    transition: right .8s; 
+
+    &.act {
+        right: 0;
+    }
+
+    ul {
+        padding: 0 5%;
+        li {
+            margin-top: rem(25);
+        }
+    }
+
+    footer {
+        padding: rem(20) 0;
+        ._wrap {
+            display: block; height: auto;
+        }
+    }    
+
+}
+
+
+.header.mob {
+
+    .lb {
+        .gnb {
             display: none;
         }
     }
 
-    @include max(820){
-
-        ._wrap {
-            height: 50px;
-        }
-
-        .lb {
-            .gnb {
-                display: none;
-            }
-        }
-
-        .user {
-            margin-right: 50px;
-        }
-
+    .user {
+        margin-right: 50px;
     }
 
 
-    @include max(480){
-
-
-
+    .menu {
+        display: block;
     }
-    
+
+    .fullHeader {
+        display: flex;
+    }
 
 }
+
 
 // 푸터
 .footer {

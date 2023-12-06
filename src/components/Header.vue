@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+    <header class="header" :class="mob && 'mob'">
         <div class="_wrap">
             
             <div class="lb">
@@ -53,20 +53,36 @@
 
             </div>
 
-            <div class="menu">
+            <div class="menu" :class="menu && 'act'" @click="this.menu = !this.menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
 
         </div>
+
+        <div class="fullHeader" :class="menu && 'act' ">
+            <ul>
+                <li><router-link to="/"><font-awesome-icon :icon="['fas', 'house']" /> HOME</router-link></li>
+                <li><router-link to="/list/popular">인기 영상</router-link></li>
+                <li><router-link to="/list/music">음악</router-link></li>
+                <li><router-link to="/list/gaming">게임</router-link></li>
+                <li><router-link to="/list/news">뉴스</router-link></li>
+                <li><router-link to="/list/sport">스포츠</router-link></li>
+                <li><router-link to="/list/like">관심 콘텐츠</router-link></li>
+            </ul>
+            <Footer/>
+        </div>
+
     </header>
+
 </template>
 
 <script>
 
     import { mapState } from 'vuex';
     import Search from './Layout/Search/Search.vue';
+    import Footer from './Footer.vue';
 
     export default {
         name : "Header",
@@ -74,11 +90,14 @@
             return {
                 selectUser : null,
                 profile : null,
-                profileInfo : false
+                profileInfo : false,
+                menu : false,
+                mob : false
             }
         },
         components : {
-            Search
+            Search,
+            Footer
         },
         computed : {
             ...mapState(['user'])
@@ -124,12 +143,46 @@
             }
         },
         created() {
-            
+
             const selectUser = this.user?.profile.filter(el=>el.select == true)[0];
             this.selectUser = selectUser;
 
             const profile = this.user?.profile.filter(el=>el.select == false);
             this.profile = profile;
+
+            this.$watch(
+                ()=> this.$route,
+                ()=>{
+                    this.menu = false;
+                }
+            )
+
+        },
+        mounted() {
+            
+            let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? true : false;
+
+            if(isMobile){
+                this.mob = true;
+            }else{
+                this.mob = false;
+            }
+
+            window.addEventListener('resize',()=>{
+                let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? true : false;
+
+                if(isMobile){
+                    this.mob = true;
+                }else{
+                    
+                    if(window.innerWidth < 821){
+                        this.mob = true;
+                    }else{
+                        this.mob = false;
+                    }
+                    
+                }
+            });
 
         },
     }
