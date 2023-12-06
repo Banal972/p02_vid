@@ -6,6 +6,14 @@
 
   export default {  
     name: 'App',
+    created() {
+      this.$watch(
+        ()=> this.$route,
+        ()=>{
+          window.scrollTo(0,0);
+        }
+      )
+    },
   }
 
 </script>
