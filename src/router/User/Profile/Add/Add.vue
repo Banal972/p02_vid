@@ -235,6 +235,7 @@ import { mapState } from 'vuex';
                 
                 this.updateId = getProfile;
                 this.name = getProfile.name;
+                this.imgURL = getProfile.img;
 
                 if(getProfile.pin != null){
                     this.pinSetting = true;
