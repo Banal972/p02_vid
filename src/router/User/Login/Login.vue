@@ -73,7 +73,7 @@
             }
         },
         mounted() {
-            let idGet = this.cookies.get("cookie-user");
+            let idGet = this.cookies.get("myUser");
             if(idGet){
                 this.userId = idGet;
                 this.saveid = true;
@@ -103,9 +103,12 @@
                     return alert('아이디 혹은 비밀번호가 다릅니다.')
                 }
 
+                if(this.saveid){
+                    this.cookies.set("myUser", this.userId);
+                }
+                
                 this.$store.commit('authLogin',this.userId);
                 alert('로그인에 성공하였습니다.');
-                this.cookies.set("cookie-user",this.userId);
                 this.$router.push('/user/select');
 
             }

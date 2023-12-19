@@ -19,7 +19,7 @@ globalCookiesConfig({
     expireTimes: "30d",
     path: "/",
     domain: "",
-    secure: true,
+    secure: false,
     sameSite: "None",
 });
 
