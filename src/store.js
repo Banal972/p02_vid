@@ -7,16 +7,16 @@ const store = createStore({
       user : null,
       member : [
         {
-          userID : "test2",
-          userName : "테스트2",
-          userEmail : "test2@test.com",
+          userID : "test",
+          userName : "테스트",
+          userEmail : "test@test.com",
           userPW : "!xptmxm123",
           profile : []
         },
         {
-          userID : "test",
-          userName : "테스트",
-          userEmail : "test@test.com",
+          userID : "test2",
+          userName : "테스트2",
+          userEmail : "test2@test.com",
           userPW : "!xptmxm123",
           profile : [
             {
