@@ -5,7 +5,7 @@
 
             <!-- 유저 프로필 -->
             <label for="file" class="user-img">
-                <div class="user-profile" :style="`background-image: url(${this.imgURL ? this.imgURL : '/img/profile.png'})`">
+                <div class="user-profile" :style="`background-image: url(${this.imgURL ? this.imgURL : `/p02_vid/img/profile.png`})`">
                     <div class="icon">
                         <font-awesome-icon :icon="['far', 'pen-to-square']" />
                     </div>

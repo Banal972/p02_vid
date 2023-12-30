@@ -21,7 +21,7 @@ const store = createStore({
           profile : [
             {
               id : "0123456",
-              img : "/img/profile.png",
+              img : "/p02_vid/img/profile.png",
               name : "프로필1",
               select : false,
               pin : "0722",
@@ -29,7 +29,7 @@ const store = createStore({
             },
             {
               id : "0123457",
-              img : "/img/profile.png",
+              img : "/p02_vid/img/profile.png",
               name : "프로필2",
               select : false,
               pin : "1234",
@@ -39,7 +39,7 @@ const store = createStore({
             },
             {
               id : "0123458",
-              img : "/img/profile.png",
+              img : "/p02_vid/img/profile.png",
               name : "프로필3",
               select : false,
               pin : "4567",
@@ -47,7 +47,7 @@ const store = createStore({
             },
             {
               id : "0123459",
-              img : "/img/profile.png",
+              img : "/p02_vid/img/profile.png",
               name : "프로필4",
               select : false,
               pin : "0124",
@@ -55,7 +55,7 @@ const store = createStore({
             },
             {
               id : "0123460",
-              img : "/img/profile.png",
+              img : "/p02_vid/img/profile.png",
               name : "프로필5",
               select : false,
               pin : "7896",
@@ -107,7 +107,7 @@ const store = createStore({
       let pin = "";
 
       if(payload.imgURL == ""){
-        imgURL = "/img/profile.png";
+        imgURL = "/p02_vid/img/profile.png";
       }else{
         imgURL = payload.imgURL;
       }

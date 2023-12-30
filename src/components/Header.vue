@@ -38,7 +38,7 @@
                                 <p class="name">{{a.name}}</p>
                             </li>
                             <li @click="addProfile">
-                                <div class="user-icon" :style="`background-image:url(/img/plus.jpg)`"></div>
+                                <div class="user-icon" :style="`background-image:url(/p02_vid/img/plus.jpg)`"></div>
                                 <p class="name">프로필 추가</p>
                             </li>
                         </ul>
