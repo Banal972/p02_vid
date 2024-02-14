@@ -144,7 +144,7 @@
             inputPin(e,i){
 
                 this.pins[i] = e.target.value;
-                const legn = document.querySelectorAll('input');
+                const legn = document.querySelectorAll('._selectPro .input input');
 
                 if(e.target.value.length >= 1){
 

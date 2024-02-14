@@ -67,8 +67,8 @@
         },
         data() {
             return {
-                userId : "",
-                userPw : "",
+                userId : "test2",
+                userPw : "!xptmxm123",
                 saveid : false,
             }
         },

@@ -22,15 +22,15 @@ const store = createStore({
             {
               id : "0123456",
               img : "/p02_vid/img/profile.png",
-              name : "프로필1",
+              name : "핀설정이 안되어있는 계정",
               select : false,
-              pin : "0722",
+              pin : "",
               likeVid : []
             },
             {
               id : "0123457",
               img : "/p02_vid/img/profile.png",
-              name : "프로필2",
+              name : "pin 1234",
               select : false,
               pin : "1234",
               likeVid : [
@@ -40,7 +40,7 @@ const store = createStore({
             {
               id : "0123458",
               img : "/p02_vid/img/profile.png",
-              name : "프로필3",
+              name : "pin 4567",
               select : false,
               pin : "4567",
               likeVid : []
@@ -48,7 +48,7 @@ const store = createStore({
             {
               id : "0123459",
               img : "/p02_vid/img/profile.png",
-              name : "프로필4",
+              name : "pin 0124",
               select : false,
               pin : "0124",
               likeVid : []
@@ -56,7 +56,7 @@ const store = createStore({
             {
               id : "0123460",
               img : "/p02_vid/img/profile.png",
-              name : "프로필5",
+              name : "pin 7896",
               select : false,
               pin : "7896",
               likeVid : []
